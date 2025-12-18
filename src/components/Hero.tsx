@@ -27,9 +27,9 @@ const Hero = () => {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-xl mb-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            Український Discord бот для вашого серверу. 
-            Модерація, розваги та багато іншого!
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            Перший український бот-комбайн для вашого сервера! 
+            Безліч функцій: Верифікація користувачів, Штучний інтелект, Авто-ролі, Реакції та багато іншого!
           </p>
 
           {/* CTA Buttons */}
