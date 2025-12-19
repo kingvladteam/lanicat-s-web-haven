@@ -19,9 +19,9 @@ const Footer = () => {
               <a href="https://discord.gg/aWPSsuEzr3" className="text-muted-foreground hover:text-primary transition-colors">
                 Підтримка
               </a>
-              <a href="#faq" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link to="/faq" className="text-muted-foreground hover:text-primary transition-colors">
                 FAQ
-              </a>
+              </Link>
               <Link to="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
                 Політика конфіденційності
               </Link>

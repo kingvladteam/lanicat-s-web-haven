@@ -1,17 +1,12 @@
 import { 
-  Shield, 
-  Music, 
-  Smile, 
-  MessageSquare, 
-  Users, 
-  Zap, 
   Bot,
   Hammer,
   Wrench,
   Heart,
   CheckCircle,
   UserPlus,
-  Lock
+  Lock,
+  Sparkles
 } from "lucide-react";
 
 const modules = [
@@ -89,6 +84,13 @@ const modules = [
     title: "Безпека",
     description: "Захист від твінк-акаунтів та селф-ботів. Автоматичний бан щойно створених акаунтів.",
     commands: []
+  },
+  {
+    icon: Sparkles,
+    title: "Скоро...",
+    description: "У наступних оновленнях будуть нові круті фішки! Слідкуйте за новинами на сервері підтримки.",
+    commands: [],
+    isComingSoon: true
   }
 ];
 
@@ -109,14 +111,17 @@ const Features = () => {
           {modules.map((module, index) => (
             <div
               key={module.title}
-              className="group p-6 bg-card rounded-xl border border-border 
-                         hover:border-primary/50 transition-all duration-300 hover:scale-[1.02]
-                         hover:glow-soft flex flex-col"
+              className={`group p-6 bg-card rounded-xl border transition-all duration-300 hover:scale-[1.02] flex flex-col
+                ${module.isComingSoon 
+                  ? 'border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 hover:border-primary' 
+                  : 'border-border hover:border-primary/50 hover:glow-soft'}`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4
-                              group-hover:bg-primary/20 transition-colors">
-                <module.icon className="w-6 h-6 text-primary" />
+              <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-colors
+                ${module.isComingSoon 
+                  ? 'bg-primary/20 group-hover:bg-primary/30' 
+                  : 'bg-primary/10 group-hover:bg-primary/20'}`}>
+                <module.icon className={`w-6 h-6 ${module.isComingSoon ? 'text-primary animate-pulse' : 'text-primary'}`} />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-foreground">{module.title}</h3>
               <p className="text-muted-foreground text-sm mb-3">{module.description}</p>
@@ -138,6 +143,17 @@ const Features = () => {
                       </span>
                     )}
                   </div>
+                </div>
+              )}
+              
+              {module.isComingSoon && (
+                <div className="mt-auto pt-3">
+                  <a 
+                    href="https://discord.gg/aWPSsuEzr3"
+                    className="text-xs text-primary hover:underline"
+                  >
+                    Слідкувати за оновленнями →
+                  </a>
                 </div>
               )}
             </div>
