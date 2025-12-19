@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import lanicatLogo from "@/assets/lanicat-logo.png";
-
 const Terms = () => {
-  return (
-    <main className="min-h-screen bg-background">
+  return <main className="min-h-screen bg-background">
       {/* Header */}
       <header className="py-6 border-b border-border">
         <div className="container px-4">
@@ -146,11 +144,9 @@ const Terms = () => {
       {/* Footer */}
       <footer className="py-8 border-t border-border">
         <div className="container px-4 text-center">
-          <p className="text-muted-foreground text-sm">© 2024 Lanicat. Усі права захищено.</p>
+          <p className="text-muted-foreground text-sm">© 2026 Lanicat. Усі права захищено.</p>
         </div>
       </footer>
-    </main>
-  );
+    </main>;
 };
-
 export default Terms;
