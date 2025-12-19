@@ -13,10 +13,10 @@ const Footer = () => {
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-6">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                Discord
+              <a href="https://dsc.gg/lanicat" className="text-muted-foreground hover:text-primary transition-colors">
+                Додати бота
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://discord.gg/aWPSsuEzr3" className="text-muted-foreground hover:text-primary transition-colors">
                 Підтримка
               </a>
               <a href="#faq" className="text-muted-foreground hover:text-primary transition-colors">
@@ -33,7 +33,7 @@ const Footer = () => {
 
           <div className="text-center">
             <p className="text-muted-foreground text-sm">
-              © 2024 Lanicat. Усі права захищено.
+              © 2026 Lanicat. Усі права захищено.
             </p>
           </div>
         </div>
