@@ -53,11 +53,11 @@ const Hero = () => {
           {/* Stats */}
           <div className="flex flex-wrap justify-center gap-8 md:gap-16 mt-16 animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-gradient">500+</div>
+              <div className="text-3xl md:text-4xl font-bold text-gradient">400+</div>
               <div className="text-muted-foreground text-sm">Серверів</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-gradient">50K+</div>
+              <div className="text-3xl md:text-4xl font-bold text-gradient">40K+</div>
               <div className="text-muted-foreground text-sm">Користувачів</div>
             </div>
             <div className="text-center">
