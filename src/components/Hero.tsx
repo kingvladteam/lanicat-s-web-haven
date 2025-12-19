@@ -48,6 +48,13 @@ const Hero = () => {
             >
               Можливості
             </a>
+            <a
+              href="https://discord.gg/aWPSsuEzr3"
+              className="px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg 
+                         hover:bg-gold-light transition-all duration-300 glow-gold hover:scale-105"
+            >
+              Сервер підтримки
+            </a>
           </div>
 
           {/* Stats */}
