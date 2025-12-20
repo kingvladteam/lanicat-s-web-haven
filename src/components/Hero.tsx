@@ -105,7 +105,7 @@ const Hero = () => {
             el.scrollIntoView({ behavior: 'smooth' });
           }
         }}
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer group z-20"
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer group z-20"
         aria-label="Перейти до модулів"
       >
         <div className="w-10 h-14 rounded-full border-2 border-muted-foreground/50 flex flex-col items-center justify-center gap-1 hover:border-primary transition-colors group-hover:bg-primary/10">
