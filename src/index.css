@@ -122,3 +122,20 @@
     transform: translateY(0);
   }
 }
+
+@keyframes slide-up-delayed {
+  0% { 
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-slide-up-delayed {
+    animation: slide-up-delayed 0.5s ease-out;
+  }
+}
