@@ -9,7 +9,6 @@ import {
   Lock,
   Sparkles,
   ChevronDown,
-  X
 } from "lucide-react";
 import {
   Dialog,
@@ -17,6 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { ScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const modules = [
   {
@@ -122,66 +122,68 @@ const Features = () => {
   return (
     <section id="features" className="py-24 bg-background">
       <div className="container px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            <span className="text-gradient">Модулі</span> бота
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Lanicat — перший український бот-комбайн з безліччю функцій
-          </p>
-        </div>
+        <ScrollAnimation>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              <span className="text-gradient">Модулі</span> бота
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Lanicat — перший український бот-комбайн з безліччю функцій
+            </p>
+          </div>
+        </ScrollAnimation>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {modules.map((module, index) => (
-            <button
-              key={module.title}
-              onClick={() => setSelectedModule(module)}
-              className={`group p-6 bg-card rounded-xl border transition-all duration-300 hover:scale-[1.02] flex flex-col text-left cursor-pointer
-                ${module.isComingSoon 
-                  ? 'border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 hover:border-primary' 
-                  : 'border-border hover:border-primary/50 hover:glow-soft'}`}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="flex items-start justify-between w-full">
-                <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-colors
+            <ScrollAnimation key={module.title} delay={index * 100}>
+              <button
+                onClick={() => setSelectedModule(module)}
+                className={`group p-6 bg-card rounded-xl border transition-all duration-300 hover:scale-[1.02] flex flex-col text-left cursor-pointer w-full h-full
                   ${module.isComingSoon 
-                    ? 'bg-primary/20 group-hover:bg-primary/30' 
-                    : 'bg-primary/10 group-hover:bg-primary/20'}`}>
-                  <module.icon className={`w-6 h-6 ${module.isComingSoon ? 'text-primary animate-pulse' : 'text-primary'}`} />
-                </div>
-                <ChevronDown className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-foreground">{module.title}</h3>
-              <p className="text-muted-foreground text-sm mb-3">{module.description}</p>
-              
-              {module.commands.length > 0 && (
-                <div className="mt-auto pt-3 border-t border-border/50">
-                  <div className="flex flex-wrap gap-1.5">
-                    {module.commands.slice(0, 4).map((cmd) => (
-                      <span 
-                        key={cmd.cmd} 
-                        className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-md font-mono"
-                      >
-                        {cmd.cmd}
-                      </span>
-                    ))}
-                    {module.commands.length > 4 && (
-                      <span className="text-xs px-2 py-1 bg-muted text-muted-foreground rounded-md">
-                        +{module.commands.length - 4}
-                      </span>
-                    )}
+                    ? 'border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 hover:border-primary' 
+                    : 'border-border hover:border-primary/50 hover:glow-soft'}`}
+              >
+                <div className="flex items-start justify-between w-full">
+                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-colors
+                    ${module.isComingSoon 
+                      ? 'bg-primary/20 group-hover:bg-primary/30' 
+                      : 'bg-primary/10 group-hover:bg-primary/20'}`}>
+                    <module.icon className={`w-6 h-6 ${module.isComingSoon ? 'text-primary animate-pulse' : 'text-primary'}`} />
                   </div>
+                  <ChevronDown className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
                 </div>
-              )}
-              
-              {module.isComingSoon && (
-                <div className="mt-auto pt-3">
-                  <span className="text-xs text-primary">
-                    Натисни для деталей →
-                  </span>
-                </div>
-              )}
-            </button>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">{module.title}</h3>
+                <p className="text-muted-foreground text-sm mb-3">{module.description}</p>
+                
+                {module.commands.length > 0 && (
+                  <div className="mt-auto pt-3 border-t border-border/50">
+                    <div className="flex flex-wrap gap-1.5">
+                      {module.commands.slice(0, 4).map((cmd) => (
+                        <span 
+                          key={cmd.cmd} 
+                          className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-md font-mono"
+                        >
+                          {cmd.cmd}
+                        </span>
+                      ))}
+                      {module.commands.length > 4 && (
+                        <span className="text-xs px-2 py-1 bg-muted text-muted-foreground rounded-md">
+                          +{module.commands.length - 4}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+                
+                {module.isComingSoon && (
+                  <div className="mt-auto pt-3">
+                    <span className="text-xs text-primary">
+                      Натисни для деталей →
+                    </span>
+                  </div>
+                )}
+              </button>
+            </ScrollAnimation>
           ))}
         </div>
       </div>
