@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { HelpCircle, Crown, Terminal, Shield, Cpu, Database, Settings } from "lucide-react";
+import { ScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const faqCategories = [
   {
@@ -118,38 +119,42 @@ const FAQ = () => {
   return (
     <section id="faq" className="py-20 bg-background">
       <div className="container px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-gradient">FAQ</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Часті запитання про бота Lanicat
-          </p>
-        </div>
+        <ScrollAnimation>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              <span className="text-gradient">FAQ</span>
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Часті запитання про бота Lanicat
+            </p>
+          </div>
+        </ScrollAnimation>
 
         <div className="max-w-4xl mx-auto space-y-8">
-          {faqCategories.map((category) => (
-            <div key={category.id} className="bg-card rounded-xl border border-border p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <category.icon className="w-5 h-5 text-primary" />
+          {faqCategories.map((category, index) => (
+            <ScrollAnimation key={category.id} delay={index * 100}>
+              <div className="bg-card rounded-xl border border-border p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <category.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
                 </div>
-                <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
-              </div>
               
-              <Accordion type="single" collapsible className="w-full">
-                {category.questions.map((item, index) => (
-                  <AccordionItem key={index} value={`${category.id}-${index}`} className="border-border/50">
-                    <AccordionTrigger className="text-left text-foreground hover:text-primary">
-                      {item.q}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
-                      {item.a}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
+                <Accordion type="single" collapsible className="w-full">
+                  {category.questions.map((item, qIndex) => (
+                    <AccordionItem key={qIndex} value={`${category.id}-${qIndex}`} className="border-border/50">
+                      <AccordionTrigger className="text-left text-foreground hover:text-primary">
+                        {item.q}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground">
+                        {item.a}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            </ScrollAnimation>
           ))}
         </div>
       </div>
