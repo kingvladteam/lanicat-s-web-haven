@@ -36,7 +36,7 @@ const Header = () => {
               </Link>
             ))}
             <a
-              href="https://discord.com/oauth2/authorize?client_id=1115204425133416499&permissions=1634235779318&integration_type=0&scope=bot"
+              href="https://dsc.gg/lanicat"
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
