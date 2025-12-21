@@ -2,24 +2,38 @@ import { Link } from "react-router-dom";
 import Footer from "@/components/Footer";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { CheckCircle, Zap, Shield, Users, Calendar, Award } from "lucide-react";
-
 const About = () => {
-  const features = [
-    { icon: Shield, text: "Верифікацію користувачів" },
-    { icon: Zap, text: "Інтеграцію зі штучним інтелектом" },
-    { icon: Users, text: "Систему авто-ролей" },
-    { icon: CheckCircle, text: "Інші інструменти для керування та автоматизації сервера" },
-  ];
-
-  const timeline = [
-    { date: "Кінець 2023", title: "Початок розробки", description: "Lanicat створювався як експериментальний технічний проєкт для вивчення архітектури Discord-ботів." },
-    { date: "Січень 2024", title: "Офіційний запуск", description: "Після активної фази розробки та тестування бот був офіційно запущений." },
-    { date: "Весна 2024", title: "75 серверів та верифікація", description: "Lanicat досяг важливої віхи та отримав офіційну верифікацію від Discord." },
-    { date: "Сьогодні", title: "Версія 2.0", description: "Стабільний реліз із оптимізованим кодом, покращеною архітектурою та розширеним функціоналом." },
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  const features = [{
+    icon: Shield,
+    text: "Верифікацію користувачів"
+  }, {
+    icon: Zap,
+    text: "Інтеграцію зі штучним інтелектом"
+  }, {
+    icon: Users,
+    text: "Систему авто-ролей"
+  }, {
+    icon: CheckCircle,
+    text: "Інші інструменти для керування та автоматизації сервера"
+  }];
+  const timeline = [{
+    date: "Кінець 2023",
+    title: "Початок розробки",
+    description: "Lanicat створювався як експериментальний технічний проєкт для вивчення архітектури Discord-ботів."
+  }, {
+    date: "Січень 2024",
+    title: "Офіційний запуск",
+    description: "Після активної фази розробки та тестування бот був офіційно запущений."
+  }, {
+    date: "Весна 2024",
+    title: "75 серверів та верифікація",
+    description: "Lanicat досяг важливої віхи та отримав офіційну верифікацію від Discord."
+  }, {
+    date: "Сьогодні",
+    title: "Версія 2.0",
+    description: "Стабільний реліз із оптимізованим кодом, покращеною архітектурою та розширеним функціоналом."
+  }];
+  return <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="py-6 border-b border-border">
         <div className="container px-4">
@@ -60,9 +74,7 @@ const About = () => {
             <p className="text-muted-foreground leading-relaxed mb-4">
               <strong className="text-foreground">Lanicat</strong> — це багатофункціональний програмний бот, створений для автоматизації, модерації та розширення можливостей серверів. Проєкт розроблений і підтримується <strong className="text-primary">Kingvlad</strong> з акцентом на стабільність, функціональність і зручність для користувачів.
             </p>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Lanicat є повністю безкоштовним ботом і з самого початку створювався спеціально для українських спільнот. Основна ідея проєкту — надати українським серверам якісний, сучасний та універсальний інструмент без необхідності використання кількох різних ботів.
-            </p>
+            <p className="text-muted-foreground leading-relaxed mb-4">Lanicat є повністю ботом і з самого початку створювався спеціально для українських спільнот. Основна ідея проєкту — надати українським серверам якісний, сучасний та універсальний інструмент без необхідності використання кількох різних ботів.</p>
           </section>
 
           {/* Features */}
@@ -72,12 +84,10 @@ const About = () => {
               Lanicat — це перший український бот-комбайн для вашого сервера, який поєднує в собі безліч функцій:
             </p>
             <div className="grid gap-4">
-              {features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-4 p-4 bg-card rounded-lg border border-border hover:border-primary/30 transition-colors">
+              {features.map((feature, index) => <div key={index} className="flex items-center gap-4 p-4 bg-card rounded-lg border border-border hover:border-primary/30 transition-colors">
                   <feature.icon className="w-6 h-6 text-primary flex-shrink-0" />
                   <span className="text-foreground">{feature.text}</span>
-                </div>
-              ))}
+                </div>)}
             </div>
           </section>
 
@@ -85,8 +95,7 @@ const About = () => {
           <section className="mb-16">
             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gradient">Історія розвитку</h2>
             <div className="space-y-6">
-              {timeline.map((item, index) => (
-                <div key={index} className="relative pl-8 border-l-2 border-primary/30 hover:border-primary transition-colors">
+              {timeline.map((item, index) => <div key={index} className="relative pl-8 border-l-2 border-primary/30 hover:border-primary transition-colors">
                   <div className="absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full" />
                   <div className="flex items-center gap-2 mb-2">
                     <Calendar className="w-4 h-4 text-primary" />
@@ -94,8 +103,7 @@ const About = () => {
                   </div>
                   <h3 className="text-lg font-bold text-foreground mb-1">{item.title}</h3>
                   <p className="text-muted-foreground">{item.description}</p>
-                </div>
-              ))}
+                </div>)}
             </div>
           </section>
 
@@ -133,11 +141,8 @@ const About = () => {
 
           {/* CTA */}
           <div className="text-center pt-8">
-            <a
-              href="https://dsc.gg/lanicat"
-              className="inline-block px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg 
-                         hover:bg-gold-light transition-all duration-300 glow-gold hover:scale-105"
-            >
+            <a href="https://dsc.gg/lanicat" className="inline-block px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg 
+                         hover:bg-gold-light transition-all duration-300 glow-gold hover:scale-105">
               Додати Lanicat на сервер
             </a>
           </div>
@@ -145,8 +150,6 @@ const About = () => {
       </main>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default About;
