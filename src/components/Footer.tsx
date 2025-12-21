@@ -33,7 +33,7 @@ const Footer = () => {
 
           <div className="text-center">
             <p className="text-muted-foreground text-sm">
-              © 2025 Lanicat by Kingvlad. Усі права захищено.
+              © 2026 Lanicat by kingvlad. Усі права захищено.
             </p>
           </div>
         </div>

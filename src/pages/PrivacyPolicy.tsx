@@ -1,17 +1,11 @@
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import lanicatLogo from "@/assets/lanicat-logo.png";
+
 const PrivacyPolicy = () => {
-  return <main className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="py-6 border-b border-border">
-        <div className="container px-4">
-          <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-            <ArrowLeft className="w-4 h-4" />
-            На головну
-          </Link>
-        </div>
-      </header>
+  return (
+    <main className="min-h-screen bg-background pt-16">
+      <Header />
 
       {/* Content */}
       <div className="container px-4 py-12">
@@ -140,12 +134,9 @@ const PrivacyPolicy = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="py-8 border-t border-border">
-        <div className="container px-4 text-center">
-          <p className="text-muted-foreground text-sm">© 2026 Lanicat. Усі права захищено.</p>
-        </div>
-      </footer>
-    </main>;
+      <Footer />
+    </main>
+  );
 };
+
 export default PrivacyPolicy;
