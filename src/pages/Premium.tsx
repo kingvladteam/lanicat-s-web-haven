@@ -81,7 +81,7 @@ const Premium = () => {
                     <span className="text-2xl text-primary">₴</span>
                     <span className="text-muted-foreground">/місяць</span>
                   </div>
-                  <a href="https://discord.gg/lanicat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors">
+                  <a target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors" href="https://dsc.gg/lanicat">
                     <Crown className="w-5 h-5" />
                     Оформити підписку
                   </a>
