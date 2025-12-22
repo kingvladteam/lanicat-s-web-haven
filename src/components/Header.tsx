@@ -11,6 +11,7 @@ const Header = () => {
   const navLinks = [
     { to: "/", label: "Головна" },
     { to: "/about", label: "Про бота" },
+    { to: "/premium", label: "Premium" },
     { to: "/faq", label: "FAQ" },
   ];
 
