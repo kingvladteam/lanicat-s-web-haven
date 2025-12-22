@@ -9,7 +9,7 @@ const Hero = () => {
         <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-gold-dark/20 rounded-full blur-[100px]" />
       </div>
 
-      <div className="container relative z-10 px-4 py-20">
+      <div className="container relative z-10 px-4 pt-28 pb-20">
         <div className="flex flex-col items-center text-center">
           {/* Logo */}
           <div className="relative mb-8 animate-float">
