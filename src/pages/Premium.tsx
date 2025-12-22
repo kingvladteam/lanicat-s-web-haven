@@ -114,12 +114,10 @@ const Premium = () => {
                 <h3 className="text-2xl font-bold text-foreground mb-4">
                   Готові підтримати проєкт?
                 </h3>
-                <p className="text-muted-foreground mb-6">
-                  Приєднуйтесь до нашого сервера підтримки в Discord для оформлення підписки
-                </p>
+                <p className="text-muted-foreground mb-6">Приєднуйтесь до нашого сервера підтримки в Discord для відповіді на усі ваші запитання</p>
                 <a href="https://discord.gg/lanicat" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors">
                   <MessageCircle className="w-5 h-5" />
-                  Перейти в Discord
+                  Перейти на сервер підтримки    
                 </a>
               </div>
             </div>
