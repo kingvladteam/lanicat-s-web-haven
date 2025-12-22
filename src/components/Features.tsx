@@ -34,7 +34,8 @@ const modules = [
       { cmd: "/userinfo", desc: "Інформація про користувача Discord" },
       { cmd: "/botinfo", desc: "Статистика та інформація про бота" },
       { cmd: "/tiktokinfo", desc: "Інформація про користувача в TikTok" },
-      { cmd: "/premium", desc: "Інформація про Преміум-підписку" }
+      { cmd: "/premium", desc: "Інформація про Преміум-підписку" },
+      { cmd: "/serverstats", desc: "Premium-статистика по кожному модулю для сервера", premium: true }
     ]
   },
   {
@@ -220,7 +221,12 @@ const Features = () => {
                           <code className="text-primary font-mono text-sm bg-primary/10 px-2 py-1 rounded shrink-0">
                             {cmd.cmd}
                           </code>
-                          <span className="text-muted-foreground text-sm">{cmd.desc}</span>
+                          <span className="text-muted-foreground text-sm flex-1">{cmd.desc}</span>
+                          {'premium' in cmd && cmd.premium && (
+                            <span className="text-xs px-2 py-1 bg-primary/20 text-primary rounded-md font-semibold shrink-0">
+                              Premium
+                            </span>
+                          )}
                         </div>
                       ))}
                     </div>
