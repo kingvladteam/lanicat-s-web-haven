@@ -4,43 +4,33 @@ import Footer from "@/components/Footer";
 import { Crown, Zap, Shield, Star, MessageCircle, Clock } from "lucide-react";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { ScrollAnimation } from "@/hooks/use-scroll-animation";
-
 const Premium = () => {
-  const benefits = [
-    {
-      icon: Crown,
-      title: "Ексклюзивна роль",
-      description: "Отримайте унікальну роль на сервері підтримки, яка виділить вас серед інших користувачів"
-    },
-    {
-      icon: Star,
-      title: "Ексклюзивний бейдж",
-      description: "Особливий бейдж передплатника відображається у команді /userinfo"
-    },
-    {
-      icon: Shield,
-      title: "Без реклами",
-      description: "Повне відключення всієї реклами для комфортного використання бота"
-    },
-    {
-      icon: Zap,
-      title: "Без затримок",
-      description: "Імунітет до всіх затримок на командах — миттєве виконання"
-    },
-    {
-      icon: MessageCircle,
-      title: "Пріоритетна підтримка",
-      description: "Ваші звернення обробляються в першу чергу на сервері підтримки"
-    },
-    {
-      icon: Clock,
-      title: "Premium-статистика",
-      description: "Доступ до команди /serverstats з детальною статистикою по модулях сервера"
-    }
-  ];
-
-  return (
-    <>
+  const benefits = [{
+    icon: Crown,
+    title: "Ексклюзивна роль",
+    description: "Отримайте унікальну роль на сервері підтримки, яка виділить вас серед інших користувачів"
+  }, {
+    icon: Star,
+    title: "Ексклюзивний бейдж",
+    description: "Особливий бейдж передплатника відображається у команді /userinfo"
+  }, {
+    icon: Shield,
+    title: "Без реклами",
+    description: "Повне відключення всієї реклами для комфортного використання бота"
+  }, {
+    icon: Zap,
+    title: "Без затримок",
+    description: "Імунітет до всіх затримок на командах — миттєве виконання"
+  }, {
+    icon: MessageCircle,
+    title: "Пріоритетна підтримка",
+    description: "Ваші звернення обробляються в першу чергу на сервері підтримки"
+  }, {
+    icon: Clock,
+    title: "Premium-статистика",
+    description: "Доступ до команди /serverstats з детальною статистикою по модулях сервера"
+  }];
+  return <>
       <Helmet>
         <title>Lanicat Premium - Підтримка проєкту</title>
         <meta name="description" content="Підтримайте проєкт Lanicat та отримайте ексклюзивні бонуси: без реклами, без затримок, пріоритетна підтримка та унікальні ролі." />
@@ -97,12 +87,7 @@ const Premium = () => {
                       <span className="text-2xl text-primary">₴</span>
                       <span className="text-muted-foreground">/місяць</span>
                     </div>
-                    <a 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors" 
-                      href="https://dsc.gg/lanicat"
-                    >
+                    <a target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors" href="https://dsc.gg/lanicat">
                       <Crown className="w-5 h-5" />
                       Оформити підписку
                     </a>
@@ -119,8 +104,7 @@ const Premium = () => {
                   Бонуси та можливості
                 </h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {benefits.map((benefit, index) => (
-                    <ScrollAnimation key={index} delay={400 + index * 100}>
+                  {benefits.map((benefit, index) => <ScrollAnimation key={index} delay={400 + index * 100}>
                       <div className="glass-card rounded-xl p-6 hover:border-primary/50 transition-colors h-full">
                         <div className="flex items-center gap-3 mb-4">
                           <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
@@ -130,8 +114,7 @@ const Premium = () => {
                         </div>
                         <p className="text-muted-foreground text-sm">{benefit.description}</p>
                       </div>
-                    </ScrollAnimation>
-                  ))}
+                    </ScrollAnimation>)}
                 </div>
               </div>
             </ScrollAnimation>
@@ -146,12 +129,7 @@ const Premium = () => {
                   <p className="text-muted-foreground mb-6">
                     Приєднуйтесь до нашого сервера підтримки в Discord для відповіді на усі ваші запитання
                   </p>
-                  <a 
-                    href="https://discord.gg/lanicat" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors"
-                  >
+                  <a target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-colors" href=" https://discord.gg/aWPSsuEzr3">
                     <MessageCircle className="w-5 h-5" />
                     Перейти на сервер підтримки    
                   </a>
@@ -163,8 +141,6 @@ const Premium = () => {
 
         <Footer />
       </div>
-    </>
-  );
+    </>;
 };
-
 export default Premium;
