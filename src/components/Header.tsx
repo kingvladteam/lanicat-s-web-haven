@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Header = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, profile, isLoading } = useAuth();
   
   const navLinks = [
     { to: "/", label: "Головна" },
@@ -40,14 +42,33 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="https://dsc.gg/lanicat"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              Додати бота
-            </a>
+            
+            {!isLoading && (
+              user ? (
+                <Link
+                  to="/profile"
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  {profile?.discord_avatar ? (
+                    <img 
+                      src={profile.discord_avatar} 
+                      alt="Avatar" 
+                      className="w-5 h-5 rounded-full"
+                    />
+                  ) : (
+                    <User className="w-4 h-4" />
+                  )}
+                  Профіль
+                </Link>
+              ) : (
+                <Link
+                  to="/auth"
+                  className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  Увійти
+                </Link>
+              )
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -79,14 +100,35 @@ const Header = () => {
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="https://dsc.gg/lanicat"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-center"
-              >
-                Додати бота
-              </a>
+              
+              {!isLoading && (
+                user ? (
+                  <Link
+                    to="/profile"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                  >
+                    {profile?.discord_avatar ? (
+                      <img 
+                        src={profile.discord_avatar} 
+                        alt="Avatar" 
+                        className="w-5 h-5 rounded-full"
+                      />
+                    ) : (
+                      <User className="w-4 h-4" />
+                    )}
+                    Профіль
+                  </Link>
+                ) : (
+                  <Link
+                    to="/auth"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-center"
+                  >
+                    Увійти
+                  </Link>
+                )
+              )}
             </div>
           </nav>
         )}
