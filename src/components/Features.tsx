@@ -34,8 +34,9 @@ const modules = [
       { cmd: "/serverinfo", desc: "Детальна інформація про поточний сервер" },
       { cmd: "/userinfo", desc: "Інформація про користувача Discord" },
       { cmd: "/botinfo", desc: "Статистика та інформація про бота" },
-      { cmd: "/inviteinfo", desc: "Інформація про запрошення на сервер" },
-      { cmd: "/premium", desc: "Інформація про Преміум-підписку" }
+      { cmd: "/tiktokinfo", desc: "Інформація про користувача в TikTok" },
+      { cmd: "/premium", desc: "Інформація про Преміум-підписку" },
+      { cmd: "/serverstats", desc: "Premium-статистика по кожному модулю для сервера", premium: true }
     ]
   },
   {
@@ -63,8 +64,7 @@ const modules = [
       { cmd: "/avatar", desc: "Отримати аватар будь-якого користувача у повному розмірі" },
       { cmd: "/banner", desc: "Отримати банер профілю користувача" },
       { cmd: "/sendfakemessage", desc: "Відправити фейк-повідомлення від імені бота" },
-      { cmd: "/addemoji", desc: "Додати нову емоцію на сервер за посиланням" },
-       { cmd: "/serverstats", desc: "Premium-статистика по кожному модулю для сервера", premium: true }
+      { cmd: "/addemoji", desc: "Додати нову емоцію на сервер за посиланням" }
     ]
   },
   {
