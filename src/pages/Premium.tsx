@@ -22,13 +22,25 @@ const Premium = () => {
     title: "Без затримок",
     description: "Імунітет до всіх затримок на командах — миттєве виконання"
   }, {
+    icon: Clock,
+    title: "Premium-статистика сервера",
+    description: "Доступ до команди /serverstats з детальною статистикою по модулях сервера"
+  }, {
+    icon: Clock,
+    title: "Premium-статистика бота",
+    description: "Доповнена статистика бота в /botinfo, що доступна тільки розробнику та Premium-користувачам"
+  }, {
+    icon: Star,
+    title: "Ваш текст на зображеннях",
+    description: "Доступ до команди /texttoimg, що створює зображення з вашим текстом"
+  }, {
+    icon: Zap,
+    title: "Ранній доступ",
+    description: "Нові функції бота відкриваються Premium-користувачам раніше за всіх"
+  }, {
     icon: MessageCircle,
     title: "Пріоритетна підтримка",
     description: "Ваші звернення обробляються в першу чергу на сервері підтримки"
-  }, {
-    icon: Clock,
-    title: "Premium-статистика",
-    description: "Доступ до команди /serverstats з детальною статистикою по модулях сервера"
   }];
   return <>
       <Helmet>
