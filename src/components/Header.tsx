@@ -40,14 +40,12 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="https://dsc.gg/lanicat"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/add"
               className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
             >
               Додати бота
-            </a>
+            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -79,14 +77,13 @@ const Header = () => {
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="https://dsc.gg/lanicat"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/add"
+                onClick={() => setIsMenuOpen(false)}
                 className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-center"
               >
                 Додати бота
-              </a>
+              </Link>
             </div>
           </nav>
         )}

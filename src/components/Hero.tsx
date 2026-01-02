@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 
 const Hero = () => {
@@ -34,13 +35,13 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-4 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            <a
-              href="https://dsc.gg/lanicat"
+            <Link
+              to="/add"
               className="w-full sm:w-auto px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg 
                          hover:bg-gold-light transition-all duration-300 glow-gold hover:scale-105 text-center"
             >
               Додати на сервер
-            </a>
+            </Link>
             <a
               href="#features"
               className="w-full sm:w-auto px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-lg 

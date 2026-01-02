@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import lanicatLogo from "@/assets/lanicat-logo.png";
@@ -145,13 +146,13 @@ const About = () => {
           {/* CTA */}
           <ScrollAnimation>
             <div className="text-center pt-8">
-              <a
-                href="https://dsc.gg/lanicat"
+              <Link
+                to="/add"
                 className="inline-block px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg 
                            hover:bg-gold-light transition-all duration-300 glow-gold hover:scale-105"
               >
                 Додати Lanicat на сервер
-              </a>
+              </Link>
             </div>
           </ScrollAnimation>
         </div>
