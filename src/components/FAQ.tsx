@@ -148,7 +148,23 @@ const FAQ = () => {
   const hasResults = totalResults > 0;
   const showAiSection = searchQuery.trim().length > 2 && !hasResults;
 
+  const startCooldown = () => {
+    setCooldown(true);
+    setCooldownSeconds(10);
+    const interval = setInterval(() => {
+      setCooldownSeconds((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          setCooldown(false);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
   const askAi = async () => {
+    if (cooldown) return;
     setAiLoading(true);
     setAiError("");
     setAiAnswer("");
