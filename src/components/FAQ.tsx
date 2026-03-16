@@ -125,6 +125,8 @@ const FAQ = () => {
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState("");
   const [aiAsked, setAiAsked] = useState(false);
+  const [cooldown, setCooldown] = useState(false);
+  const [cooldownSeconds, setCooldownSeconds] = useState(0);
 
   const filteredCategories = useMemo(() => {
     if (!searchQuery.trim()) return faqCategories;
@@ -146,7 +148,23 @@ const FAQ = () => {
   const hasResults = totalResults > 0;
   const showAiSection = searchQuery.trim().length > 2 && !hasResults;
 
+  const startCooldown = () => {
+    setCooldown(true);
+    setCooldownSeconds(10);
+    const interval = setInterval(() => {
+      setCooldownSeconds((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          setCooldown(false);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
   const askAi = async () => {
+    if (cooldown) return;
     setAiLoading(true);
     setAiError("");
     setAiAnswer("");
@@ -165,6 +183,7 @@ const FAQ = () => {
       setAiError(e.message || "Не вдалося отримати відповідь");
     } finally {
       setAiLoading(false);
+      startCooldown();
     }
   };
 
@@ -246,14 +265,14 @@ const FAQ = () => {
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <AlertTriangle className="w-3 h-3 text-destructive" />
                       <p className="text-xs text-muted-foreground">
-                        Експериментальна функція — може помилятись. Найкраща допомога на{" "}
+                        Це експериментальна функція, відповіді можуть бути неточними. Для гарантованої допомоги зверніться на{" "}
                         <a
-                          href="https://discord.gg/lanicat"
+                          href="https://discord.gg/aWPSsuEzr3"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-primary hover:underline"
                         >
-                          сервері підтримки
+                          сервер підтримки
                         </a>
                       </p>
                     </div>
@@ -267,10 +286,11 @@ const FAQ = () => {
                     </p>
                     <button
                       onClick={askAi}
-                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+                      disabled={cooldown}
+                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Sparkles className="w-4 h-4" />
-                      Запитати AI
+                      {cooldown ? `Зачекайте ${cooldownSeconds}с` : "Запитати AI"}
                     </button>
                   </div>
                 )}
