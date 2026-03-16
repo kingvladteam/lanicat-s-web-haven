@@ -183,6 +183,7 @@ const FAQ = () => {
       setAiError(e.message || "Не вдалося отримати відповідь");
     } finally {
       setAiLoading(false);
+      startCooldown();
     }
   };
 
