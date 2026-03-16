@@ -1,11 +1,15 @@
+import { useState, useMemo } from "react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { HelpCircle, Crown, Terminal, Shield, Cpu, Database, Settings } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { HelpCircle, Crown, Terminal, Shield, Cpu, Database, Settings, Search, Sparkles, Loader2, AlertTriangle } from "lucide-react";
 import { ScrollAnimation } from "@/hooks/use-scroll-animation";
+import { supabase } from "@/integrations/supabase/client";
+import ReactMarkdown from "react-markdown";
 
 const faqCategories = [
   {
@@ -116,6 +120,54 @@ const faqCategories = [
 ];
 
 const FAQ = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [aiAnswer, setAiAnswer] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState("");
+  const [aiAsked, setAiAsked] = useState(false);
+
+  const filteredCategories = useMemo(() => {
+    if (!searchQuery.trim()) return faqCategories;
+
+    const query = searchQuery.toLowerCase();
+    return faqCategories
+      .map((category) => ({
+        ...category,
+        questions: category.questions.filter(
+          (item) =>
+            item.q.toLowerCase().includes(query) ||
+            item.a.toLowerCase().includes(query)
+        ),
+      }))
+      .filter((category) => category.questions.length > 0);
+  }, [searchQuery]);
+
+  const totalResults = filteredCategories.reduce((sum, c) => sum + c.questions.length, 0);
+  const hasResults = totalResults > 0;
+  const showAiSection = searchQuery.trim().length > 2 && !hasResults;
+
+  const askAi = async () => {
+    setAiLoading(true);
+    setAiError("");
+    setAiAnswer("");
+    setAiAsked(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke("faq-ai", {
+        body: { question: searchQuery },
+      });
+
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+
+      setAiAnswer(data.answer);
+    } catch (e: any) {
+      setAiError(e.message || "Не вдалося отримати відповідь");
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
   return (
     <section id="faq" className="py-20 bg-background">
       <div className="container px-4">
@@ -130,8 +182,32 @@ const FAQ = () => {
           </div>
         </ScrollAnimation>
 
+        {/* Search */}
+        <div className="max-w-2xl mx-auto mb-10">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <Input
+              placeholder="Пошук питань..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setAiAsked(false);
+                setAiAnswer("");
+                setAiError("");
+              }}
+              className="pl-12 h-12 text-base bg-card border-border rounded-xl"
+            />
+          </div>
+          {searchQuery.trim() && hasResults && (
+            <p className="text-sm text-muted-foreground mt-2 ml-1">
+              Знайдено {totalResults} {totalResults === 1 ? "результат" : totalResults < 5 ? "результати" : "результатів"}
+            </p>
+          )}
+        </div>
+
+        {/* FAQ Categories */}
         <div className="max-w-4xl mx-auto space-y-8">
-          {faqCategories.map((category, index) => (
+          {filteredCategories.map((category, index) => (
             <ScrollAnimation key={category.id} delay={index * 100}>
               <div className="bg-card rounded-xl border border-border p-6">
                 <div className="flex items-center gap-3 mb-4">
@@ -140,7 +216,7 @@ const FAQ = () => {
                   </div>
                   <h3 className="text-xl font-semibold text-foreground">{category.title}</h3>
                 </div>
-              
+
                 <Accordion type="single" collapsible className="w-full">
                   {category.questions.map((item, qIndex) => (
                     <AccordionItem key={qIndex} value={`${category.id}-${qIndex}`} className="border-border/50">
@@ -156,6 +232,72 @@ const FAQ = () => {
               </div>
             </ScrollAnimation>
           ))}
+
+          {/* AI Section */}
+          {showAiSection && (
+            <ScrollAnimation>
+              <div className="bg-card rounded-xl border border-primary/20 p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <Sparkles className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-foreground">Lanicat AI</h3>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <AlertTriangle className="w-3 h-3 text-yellow-500" />
+                      <p className="text-xs text-muted-foreground">
+                        Експериментальна функція — може помилятись. Найкраща допомога на{" "}
+                        <a
+                          href="https://discord.gg/lanicat"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:underline"
+                        >
+                          сервері підтримки
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {!aiAsked && (
+                  <div className="text-center py-4">
+                    <p className="text-muted-foreground mb-4">
+                      Не знайшли відповідь? Запитайте у Lanicat AI
+                    </p>
+                    <button
+                      onClick={askAi}
+                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
+                    >
+                      <Sparkles className="w-4 h-4" />
+                      Запитати AI
+                    </button>
+                  </div>
+                )}
+
+                {aiLoading && (
+                  <div className="flex items-center justify-center gap-3 py-6">
+                    <Loader2 className="w-5 h-5 text-primary animate-spin" />
+                    <span className="text-muted-foreground">Lanicat AI думає...</span>
+                  </div>
+                )}
+
+                {aiAnswer && (
+                  <div className="bg-background/50 rounded-lg p-4 border border-border/50">
+                    <div className="prose prose-sm prose-invert max-w-none text-foreground">
+                      <ReactMarkdown>{aiAnswer}</ReactMarkdown>
+                    </div>
+                  </div>
+                )}
+
+                {aiError && (
+                  <div className="bg-destructive/10 rounded-lg p-4 border border-destructive/20">
+                    <p className="text-sm text-destructive">{aiError}</p>
+                  </div>
+                )}
+              </div>
+            </ScrollAnimation>
+          )}
         </div>
       </div>
     </section>
