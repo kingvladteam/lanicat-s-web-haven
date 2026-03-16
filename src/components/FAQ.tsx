@@ -265,14 +265,14 @@ const FAQ = () => {
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <AlertTriangle className="w-3 h-3 text-destructive" />
                       <p className="text-xs text-muted-foreground">
-                        Експериментальна функція — може помилятись. Найкраща допомога на{" "}
+                        Це експериментальна функція, відповіді можуть бути неточними. Для гарантованої допомоги зверніться на{" "}
                         <a
-                          href="https://discord.gg/lanicat"
+                          href="https://discord.gg/aWPSsuEzr3"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-primary hover:underline"
                         >
-                          сервері підтримки
+                          сервер підтримки
                         </a>
                       </p>
                     </div>
