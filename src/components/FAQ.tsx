@@ -125,6 +125,8 @@ const FAQ = () => {
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState("");
   const [aiAsked, setAiAsked] = useState(false);
+  const [cooldown, setCooldown] = useState(false);
+  const [cooldownSeconds, setCooldownSeconds] = useState(0);
 
   const filteredCategories = useMemo(() => {
     if (!searchQuery.trim()) return faqCategories;
