@@ -244,7 +244,7 @@ const FAQ = () => {
                   <div>
                     <h3 className="text-xl font-semibold text-foreground">Lanicat AI</h3>
                     <div className="flex items-center gap-1.5 mt-0.5">
-                      <AlertTriangle className="w-3 h-3 text-yellow-500" />
+                      <AlertTriangle className="w-3 h-3 text-destructive" />
                       <p className="text-xs text-muted-foreground">
                         Експериментальна функція — може помилятись. Найкраща допомога на{" "}
                         <a
