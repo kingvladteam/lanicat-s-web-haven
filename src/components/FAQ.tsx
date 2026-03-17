@@ -202,27 +202,32 @@ const FAQ = () => {
         </ScrollAnimation>
 
         {/* Search */}
-        <div className="max-w-2xl mx-auto mb-10">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <Input
-              placeholder="Пошук питань..."
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setAiAsked(false);
-                setAiAnswer("");
-                setAiError("");
-              }}
-              className="pl-12 h-12 text-base bg-card border-border rounded-xl"
-            />
+        <ScrollAnimation>
+          <div className="max-w-2xl mx-auto mb-10">
+            <div className="relative group">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/50 via-primary/20 to-primary/50 rounded-xl blur opacity-0 group-focus-within:opacity-100 transition-opacity duration-500" />
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors duration-300" />
+                <Input
+                  placeholder="Пошук питань..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setAiAsked(false);
+                    setAiAnswer("");
+                    setAiError("");
+                  }}
+                  className="pl-12 h-12 text-base bg-card border-border rounded-xl focus:border-primary/50 transition-all duration-300"
+                />
+              </div>
+            </div>
+            {searchQuery.trim() && hasResults && (
+              <p className="text-sm text-muted-foreground mt-2 ml-1">
+                Знайдено {totalResults} {totalResults === 1 ? "результат" : totalResults < 5 ? "результати" : "результатів"}
+              </p>
+            )}
           </div>
-          {searchQuery.trim() && hasResults && (
-            <p className="text-sm text-muted-foreground mt-2 ml-1">
-              Знайдено {totalResults} {totalResults === 1 ? "результат" : totalResults < 5 ? "результати" : "результатів"}
-            </p>
-          )}
-        </div>
+        </ScrollAnimation>
 
         {/* FAQ Categories */}
         <div className="max-w-4xl mx-auto space-y-8">
