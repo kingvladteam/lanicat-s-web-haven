@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Home, Bot, Crown, HelpCircle, Plus } from "lucide-react";
+import { Menu, X, Home, Bot, Crown, HelpCircle, Plus, Terminal, Rocket } from "lucide-react";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { cn } from "@/lib/utils";
 
