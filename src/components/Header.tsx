@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Home, Bot, Crown, HelpCircle, Plus, Terminal, Rocket } from "lucide-react";
+import { Menu, X, Home, Bot, Crown, HelpCircle, Plus } from "lucide-react";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { cn } from "@/lib/utils";
 
@@ -17,9 +17,7 @@ const Header = () => {
   const navLinks = [
     { to: "/", label: "Головна", icon: Home },
     { to: "/about", label: "Про бота", icon: Bot },
-    { to: "/commands", label: "Команди", icon: Terminal },
     { to: "/premium", label: "Premium", icon: Crown },
-    { to: "/changelog", label: "Changelog", icon: Rocket },
     { to: "/faq", label: "FAQ", icon: HelpCircle },
   ];
 
