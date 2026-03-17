@@ -267,18 +267,19 @@ const FAQ = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-foreground">Lanicat AI</h3>
-                    <div className="flex items-center gap-1.5 mt-0.5">
-                      <AlertTriangle className="w-3 h-3 text-destructive" />
-                      <p className="text-xs text-muted-foreground">
-                        Це експериментальна функція, відповіді можуть бути неточними. Для гарантованої допомоги зверніться на{" "}
+                    <div className="flex items-start gap-2 mt-1 p-2 md:p-2.5 rounded-lg bg-destructive/5 border border-destructive/10">
+                      <AlertTriangle className="w-5 h-5 md:w-4 md:h-4 text-destructive/70 flex-shrink-0 mt-0.5" />
+                      <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+                        Це експериментальна функція — відповіді генеруються штучним інтелектом і можуть містити неточності. Для надійної та перевіреної інформації рекомендуємо звернутися на{" "}
                         <a
                           href="https://discord.gg/aWPSsuEzr3"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-primary hover:underline"
+                          className="text-primary hover:underline font-medium"
                         >
                           сервер підтримки
                         </a>
+                        .
                       </p>
                     </div>
                   </div>
