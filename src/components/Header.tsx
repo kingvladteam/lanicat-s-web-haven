@@ -17,7 +17,9 @@ const Header = () => {
   const navLinks = [
     { to: "/", label: "Головна", icon: Home },
     { to: "/about", label: "Про бота", icon: Bot },
+    { to: "/commands", label: "Команди", icon: Terminal },
     { to: "/premium", label: "Premium", icon: Crown },
+    { to: "/changelog", label: "Changelog", icon: Rocket },
     { to: "/faq", label: "FAQ", icon: HelpCircle },
   ];
 
