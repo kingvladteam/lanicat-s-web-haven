@@ -11,6 +11,8 @@ import FAQPage from "./pages/FAQ";
 import About from "./pages/About";
 import Premium from "./pages/Premium";
 import Add from "./pages/Add";
+import Changelog from "./pages/Changelog";
+import Commands from "./pages/Commands";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
