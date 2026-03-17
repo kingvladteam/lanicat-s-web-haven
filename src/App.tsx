@@ -11,6 +11,8 @@ import FAQPage from "./pages/FAQ";
 import About from "./pages/About";
 import Premium from "./pages/Premium";
 import Add from "./pages/Add";
+import Changelog from "./pages/Changelog";
+import Commands from "./pages/Commands";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +32,8 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/premium" element={<Premium />} />
           <Route path="/add" element={<Add />} />
+          <Route path="/changelog" element={<Changelog />} />
+          <Route path="/commands" element={<Commands />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

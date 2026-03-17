@@ -30,22 +30,53 @@ export const useScrollAnimation = (threshold = 0.1) => {
   return { ref, isVisible };
 };
 
+type AnimationVariant = "fade-up" | "fade-left" | "fade-right" | "scale" | "blur";
+
 interface ScrollAnimationProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  variant?: AnimationVariant;
 }
 
-export const ScrollAnimation = ({ children, className = "", delay = 0 }: ScrollAnimationProps) => {
+const variantStyles: Record<AnimationVariant, { hidden: React.CSSProperties; visible: React.CSSProperties }> = {
+  "fade-up": {
+    hidden: { opacity: 0, transform: "translateY(30px)" },
+    visible: { opacity: 1, transform: "translateY(0)" },
+  },
+  "fade-left": {
+    hidden: { opacity: 0, transform: "translateX(-30px)" },
+    visible: { opacity: 1, transform: "translateX(0)" },
+  },
+  "fade-right": {
+    hidden: { opacity: 0, transform: "translateX(30px)" },
+    visible: { opacity: 1, transform: "translateX(0)" },
+  },
+  scale: {
+    hidden: { opacity: 0, transform: "scale(0.9)" },
+    visible: { opacity: 1, transform: "scale(1)" },
+  },
+  blur: {
+    hidden: { opacity: 0, filter: "blur(8px)", transform: "translateY(10px)" },
+    visible: { opacity: 1, filter: "blur(0px)", transform: "translateY(0)" },
+  },
+};
+
+export const ScrollAnimation = ({
+  children,
+  className = "",
+  delay = 0,
+  variant = "fade-up",
+}: ScrollAnimationProps) => {
   const { ref, isVisible } = useScrollAnimation();
+  const styles = variantStyles[variant];
 
   return (
     <div
       ref={ref}
       className={`transition-all duration-700 ease-out ${className}`}
       style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(30px)",
+        ...(isVisible ? styles.visible : styles.hidden),
         transitionDelay: `${delay}ms`,
       }}
     >
