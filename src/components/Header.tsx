@@ -34,22 +34,51 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary",
-                    location.pathname === link.to ? "text-primary" : "text-muted-foreground"
-                  )}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            <nav className="hidden md:flex items-center gap-2">
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                const isActive = location.pathname === link.to;
+
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className={cn(
+                      "group relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium overflow-hidden transition-all duration-300",
+                      isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "absolute inset-0 rounded-xl transition-all duration-500 ease-out",
+                        isActive
+                          ? "bg-primary/12 scale-100 opacity-100"
+                          : "bg-muted scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100"
+                      )}
+                    />
+
+                    <Icon
+                      className={cn(
+                        "relative z-10 w-4 h-4 transition-all duration-300",
+                        isActive ? "text-primary scale-105" : "text-muted-foreground group-hover:text-foreground"
+                      )}
+                    />
+
+                    <span className="relative z-10">{link.label}</span>
+
+                    <span
+                      className={cn(
+                        "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full bg-primary transition-all duration-500 ease-out",
+                        isActive ? "w-8 opacity-100" : "w-0 opacity-0 group-hover:w-6 group-hover:opacity-70"
+                      )}
+                    />
+                  </Link>
+                );
+              })}
+
               <Link
                 to="/add"
-                className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                className="ml-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105"
               >
                 Додати бота
               </Link>
