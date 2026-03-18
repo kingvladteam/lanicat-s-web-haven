@@ -1,18 +1,24 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Home, Bot, Crown, HelpCircle, Plus } from "lucide-react";
+import { Home, Bot, Crown, HelpCircle, Plus } from "lucide-react";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { cn } from "@/lib/utils";
 
 const Header = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [isMenuOpen]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const navLinks = [
     { to: "/", label: "Головна", icon: Home },
@@ -23,33 +29,55 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+      <header className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
+        scrolled
+          ? "bg-background/90 backdrop-blur-xl border-border shadow-lg shadow-black/10"
+          : "bg-background/60 backdrop-blur-md border-transparent"
+      )}>
         <div className="container px-4">
           <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <img src={lanicatLogo} alt="Lanicat" className="w-9 h-9 rounded-full" />
-              <span className="text-lg font-bold text-gradient">Lanicat</span>
+            <Link to="/" className="flex items-center gap-3 group">
+              <img
+                src={lanicatLogo}
+                alt="Lanicat"
+                className="w-9 h-9 rounded-full transition-transform duration-300 group-hover:scale-110"
+              />
+              <span className="text-lg font-bold text-gradient transition-opacity group-hover:opacity-80">
+                Lanicat
+              </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary",
-                    location.pathname === link.to
-                      ? "text-primary"
-                      : "text-muted-foreground"
-                  )}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            <nav className="hidden md:flex items-center gap-1">
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                const isActive = location.pathname === link.to;
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className={cn(
+                      "relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300",
+                      isActive
+                        ? "text-primary bg-primary/10"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    )}
+                  >
+                    <Icon className={cn(
+                      "w-4 h-4 transition-colors duration-300",
+                      isActive ? "text-primary" : "text-muted-foreground"
+                    )} />
+                    {link.label}
+                    {isActive && (
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full" />
+                    )}
+                  </Link>
+                );
+              })}
               <Link
                 to="/add"
-                className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                className="ml-3 px-5 py-2 text-sm font-semibold bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
               >
                 Додати бота
               </Link>
@@ -85,15 +113,18 @@ const Header = () => {
         "fixed inset-0 z-[55] md:hidden transition-all duration-500",
         isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
       )}>
-        {/* Backdrop */}
-        <div className={cn(
-          "absolute inset-0 bg-background/95 backdrop-blur-xl transition-opacity duration-500",
-          isMenuOpen ? "opacity-100" : "opacity-0"
-        )} />
+        {/* Backdrop — click to close */}
+        <div
+          className={cn(
+            "absolute inset-0 bg-background/95 backdrop-blur-xl transition-opacity duration-500",
+            isMenuOpen ? "opacity-100" : "opacity-0"
+          )}
+          onClick={() => setIsMenuOpen(false)}
+        />
 
         {/* Glow effects */}
         <div className={cn(
-          "absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[120px] transition-opacity duration-700",
+          "absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[120px] transition-opacity duration-700 pointer-events-none",
           isMenuOpen ? "opacity-100" : "opacity-0"
         )} />
 
@@ -108,7 +139,7 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
                 className={cn(
                   "w-full max-w-xs flex items-center gap-4 px-6 py-4 rounded-xl text-lg font-semibold transition-all duration-500",
-                  "hover:bg-primary/10 hover:scale-105",
+                  "hover:bg-primary/10 hover:scale-105 active:scale-95",
                   isMenuOpen
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8",
@@ -132,7 +163,7 @@ const Header = () => {
             onClick={() => setIsMenuOpen(false)}
             className={cn(
               "w-full max-w-xs flex items-center justify-center gap-3 mt-4 px-6 py-4 rounded-xl text-lg font-semibold",
-              "bg-primary text-primary-foreground glow-gold hover:scale-105 transition-all duration-500",
+              "bg-primary text-primary-foreground glow-gold hover:scale-105 active:scale-95 transition-all duration-500",
               isMenuOpen
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-8"
