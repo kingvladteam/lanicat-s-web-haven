@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,6 +8,7 @@ import { ScrollAnimation } from "@/hooks/use-scroll-animation";
 import { DocModuleCard } from "@/components/docs/DocModuleCard";
 import { DocModuleDetail } from "@/components/docs/DocModuleDetail";
 import { AdminPanel } from "@/components/docs/AdminPanel";
+import { DocSearch } from "@/components/docs/DocSearch";
 import { Book, Shield } from "lucide-react";
 
 export interface DocModule {
@@ -36,7 +38,9 @@ const Documentation = () => {
   const [entries, setEntries] = useState<DocEntry[]>([]);
   const [selectedModule, setSelectedModule] = useState<DocModule | null>(null);
   const [showAdmin, setShowAdmin] = useState(false);
+  const [highlightedEntry, setHighlightedEntry] = useState<string | null>(null);
   const { isAdmin } = useAdmin();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const fetchData = async () => {
     const [{ data: mods }, { data: ents }] = await Promise.all([
@@ -45,11 +49,55 @@ const Documentation = () => {
     ]);
     if (mods) setModules(mods as DocModule[]);
     if (ents) setEntries(ents as DocEntry[]);
+    return { mods: mods as DocModule[] | null, ents: ents as DocEntry[] | null };
   };
 
+  // Handle deep links: ?module=slug&cmd=command-name
   useEffect(() => {
-    fetchData();
+    fetchData().then(({ mods, ents }) => {
+      const moduleSlug = searchParams.get("module");
+      const cmdName = searchParams.get("cmd");
+      if (moduleSlug && mods) {
+        const mod = mods.find((m) => m.slug === moduleSlug);
+        if (mod) {
+          setSelectedModule(mod);
+          if (cmdName) {
+            setHighlightedEntry(cmdName);
+            // Scroll to entry after render
+            setTimeout(() => {
+              const el = document.getElementById(`entry-${cmdName}`);
+              el?.scrollIntoView({ behavior: "smooth", block: "center" });
+            }, 300);
+          }
+        }
+      }
+    });
   }, []);
+
+  const selectModule = (mod: DocModule) => {
+    setSelectedModule(mod);
+    setHighlightedEntry(null);
+    setSearchParams({ module: mod.slug });
+  };
+
+  const goBack = () => {
+    setSelectedModule(null);
+    setHighlightedEntry(null);
+    setSearchParams({});
+  };
+
+  const navigateToEntry = (entry: DocEntry) => {
+    const mod = modules.find((m) => m.id === entry.module_id);
+    if (mod) {
+      setSelectedModule(mod);
+      setHighlightedEntry(entry.name);
+      setSearchParams({ module: mod.slug, cmd: entry.name });
+      setTimeout(() => {
+        const el = document.getElementById(`entry-${entry.name}`);
+        el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 300);
+    }
+  };
 
   const moduleEntries = selectedModule
     ? entries.filter((e) => e.module_id === selectedModule.id)
@@ -92,6 +140,14 @@ const Documentation = () => {
 
       <main className="py-16">
         <div className="container px-4 max-w-5xl mx-auto">
+          {/* Search */}
+          <DocSearch
+            modules={modules}
+            entries={entries}
+            onSelectEntry={navigateToEntry}
+            onSelectModule={selectModule}
+          />
+
           {/* Admin Panel */}
           {isAdmin && showAdmin && (
             <AdminPanel
@@ -106,7 +162,8 @@ const Documentation = () => {
             <DocModuleDetail
               module={selectedModule}
               entries={moduleEntries}
-              onBack={() => setSelectedModule(null)}
+              onBack={goBack}
+              highlightedEntry={highlightedEntry}
             />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -115,7 +172,7 @@ const Documentation = () => {
                   <DocModuleCard
                     module={mod}
                     entryCount={entries.filter((e) => e.module_id === mod.id).length}
-                    onClick={() => setSelectedModule(mod)}
+                    onClick={() => selectModule(mod)}
                   />
                 </ScrollAnimation>
               ))}
