@@ -14,6 +14,92 @@ export type Database = {
   }
   public: {
     Tables: {
+      doc_entries: {
+        Row: {
+          arguments: Json | null
+          created_at: string | null
+          description: string | null
+          display_order: number
+          id: string
+          is_premium: boolean | null
+          module_id: string
+          name: string
+          updated_at: string | null
+          usage: string | null
+        }
+        Insert: {
+          arguments?: Json | null
+          created_at?: string | null
+          description?: string | null
+          display_order?: number
+          id?: string
+          is_premium?: boolean | null
+          module_id: string
+          name: string
+          updated_at?: string | null
+          usage?: string | null
+        }
+        Update: {
+          arguments?: Json | null
+          created_at?: string | null
+          description?: string | null
+          display_order?: number
+          id?: string
+          is_premium?: boolean | null
+          module_id?: string
+          name?: string
+          updated_at?: string | null
+          usage?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doc_entries_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "doc_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      doc_modules: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_order: number
+          full_description: string | null
+          icon_name: string
+          id: string
+          module_type: string
+          name: string
+          slug: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number
+          full_description?: string | null
+          icon_name?: string
+          id?: string
+          module_type?: string
+          name: string
+          slug: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number
+          full_description?: string | null
+          icon_name?: string
+          id?: string
+          module_type?: string
+          name?: string
+          slug?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string | null
