@@ -12,6 +12,7 @@ import About from "./pages/About";
 import Premium from "./pages/Premium";
 import Add from "./pages/Add";
 import NotFound from "./pages/NotFound";
+import Documentation from "./pages/Documentation";
 
 const queryClient = new QueryClient();
 
