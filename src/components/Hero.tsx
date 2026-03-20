@@ -41,8 +41,8 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <Link
                 to="/add"
-                className="w-full sm:w-auto px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg 
-                         hover:bg-gold-light transition-all duration-300 glow-gold hover:scale-105 text-center"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg 
+                         hover:bg-gold-light transition-all duration-300 glow-gold hover:scale-105"
               >
                 <Plus className="w-5 h-5" />
                 Додати на сервер
