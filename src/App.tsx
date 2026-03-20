@@ -13,6 +13,7 @@ import Premium from "./pages/Premium";
 import Add from "./pages/Add";
 import NotFound from "./pages/NotFound";
 import Documentation from "./pages/Documentation";
+import EmbedBuilder from "./pages/EmbedBuilder";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/premium" element={<Premium />} />
           <Route path="/add" element={<Add />} />
           <Route path="/documentation" element={<Documentation />} />
+          <Route path="/embed" element={<EmbedBuilder />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
