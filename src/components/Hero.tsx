@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Plus, Sparkles } from "lucide-react";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { ScrollAnimation } from "@/hooks/use-scroll-animation";
 
@@ -43,6 +44,7 @@ const Hero = () => {
                 className="w-full sm:w-auto px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg 
                          hover:bg-gold-light transition-all duration-300 glow-gold hover:scale-105 text-center"
               >
+                <Plus className="w-5 h-5" />
                 Додати на сервер
               </Link>
               <a
@@ -50,6 +52,7 @@ const Hero = () => {
                 className="w-full sm:w-auto px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-lg 
                          border border-border hover:border-primary/50 transition-all duration-300 hover:scale-105 text-center"
               >
+                <Sparkles className="w-5 h-5" />
                 Можливості
               </a>
             </div>
