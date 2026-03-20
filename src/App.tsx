@@ -13,6 +13,7 @@ import Premium from "./pages/Premium";
 import Add from "./pages/Add";
 import NotFound from "./pages/NotFound";
 import Documentation from "./pages/Documentation";
+import EmbedBuilder from "./pages/EmbedBuilder";
 
 const queryClient = new QueryClient();
 
