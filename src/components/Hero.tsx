@@ -52,6 +52,7 @@ const Hero = () => {
                 className="w-full sm:w-auto px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-lg 
                          border border-border hover:border-primary/50 transition-all duration-300 hover:scale-105 text-center"
               >
+                <Sparkles className="w-5 h-5" />
                 Можливості
               </a>
             </div>
