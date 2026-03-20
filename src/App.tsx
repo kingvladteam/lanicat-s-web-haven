@@ -33,6 +33,7 @@ const App = () => (
           <Route path="/premium" element={<Premium />} />
           <Route path="/add" element={<Add />} />
           <Route path="/documentation" element={<Documentation />} />
+          <Route path="/embed" element={<EmbedBuilder />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
