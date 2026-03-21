@@ -4,19 +4,23 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Plus, Trash2, Copy, Check } from "lucide-react";
+import { Plus, Trash2, Copy, Check, Send, Loader2 } from "lucide-react";
 import { useState } from "react";
 import type { EmbedData } from "./DiscordPreview";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface EmbedFormProps {
   embed: EmbedData;
   onChange: (embed: EmbedData) => void;
+  initialWebhookUrl?: string;
 }
 
-const EmbedForm = ({ embed, onChange }: EmbedFormProps) => {
+const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) => {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
+  const [webhookUrl, setWebhookUrl] = useState(initialWebhookUrl);
+  const [sending, setSending] = useState(false);
 
   const set = <K extends keyof EmbedData>(key: K, value: EmbedData[K]) => {
     onChange({ ...embed, [key]: value });
