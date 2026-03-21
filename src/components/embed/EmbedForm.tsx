@@ -81,6 +81,27 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
     }
   };
 
+  const sendWebhook = async () => {
+    if (!webhookUrl.trim()) {
+      toast({ title: "Помилка", description: "Введіть URL вебхука", variant: "destructive" });
+      return;
+    }
+    setSending(true);
+    try {
+      const payload = JSON.parse(generateJson());
+      const { data, error } = await supabase.functions.invoke("send-webhook", {
+        body: { webhookUrl: webhookUrl.trim(), payload },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      toast({ title: "Надіслано!", description: "Ембед успішно відправлено в Discord" });
+    } catch (err: any) {
+      toast({ title: "Помилка", description: err.message || "Не вдалося відправити", variant: "destructive" });
+    } finally {
+      setSending(false);
+    }
+  };
+
   const inputClass = "bg-[hsl(var(--secondary))] border-[hsl(var(--border))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))]";
   const labelClass = "text-xs font-medium text-[hsl(var(--muted-foreground))] uppercase tracking-wide";
 
