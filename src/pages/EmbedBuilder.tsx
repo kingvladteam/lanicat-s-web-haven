@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ScrollAnimation } from "@/hooks/use-scroll-animation";
@@ -27,7 +28,9 @@ const defaultEmbed: EmbedData = {
 };
 
 const EmbedBuilder = () => {
+  const [searchParams] = useSearchParams();
   const [embed, setEmbed] = useState<EmbedData>(defaultEmbed);
+  const webhookUrlFromParams = searchParams.get("url") || "";
 
   return (
     <>
@@ -58,7 +61,7 @@ const EmbedBuilder = () => {
                     <Code className="w-5 h-5 text-primary" />
                     <h2 className="font-semibold text-foreground">Редактор</h2>
                   </div>
-                  <EmbedForm embed={embed} onChange={setEmbed} />
+                  <EmbedForm embed={embed} onChange={setEmbed} initialWebhookUrl={webhookUrlFromParams} />
                 </div>
               </ScrollAnimation>
 

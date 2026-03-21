@@ -4,19 +4,23 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Plus, Trash2, Copy, Check } from "lucide-react";
+import { Plus, Trash2, Copy, Check, Send, Loader2 } from "lucide-react";
 import { useState } from "react";
 import type { EmbedData } from "./DiscordPreview";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface EmbedFormProps {
   embed: EmbedData;
   onChange: (embed: EmbedData) => void;
+  initialWebhookUrl?: string;
 }
 
-const EmbedForm = ({ embed, onChange }: EmbedFormProps) => {
+const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) => {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
+  const [webhookUrl, setWebhookUrl] = useState(initialWebhookUrl);
+  const [sending, setSending] = useState(false);
 
   const set = <K extends keyof EmbedData>(key: K, value: EmbedData[K]) => {
     onChange({ ...embed, [key]: value });
@@ -74,6 +78,27 @@ const EmbedForm = ({ embed, onChange }: EmbedFormProps) => {
       setTimeout(() => setCopied(false), 2000);
     } catch {
       toast({ title: "Помилка", description: "Не вдалося скопіювати", variant: "destructive" });
+    }
+  };
+
+  const sendWebhook = async () => {
+    if (!webhookUrl.trim()) {
+      toast({ title: "Помилка", description: "Введіть URL вебхука", variant: "destructive" });
+      return;
+    }
+    setSending(true);
+    try {
+      const payload = JSON.parse(generateJson());
+      const { data, error } = await supabase.functions.invoke("send-webhook", {
+        body: { webhookUrl: webhookUrl.trim(), payload },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      toast({ title: "Надіслано!", description: "Ембед успішно відправлено в Discord" });
+    } catch (err: any) {
+      toast({ title: "Помилка", description: err.message || "Не вдалося відправити", variant: "destructive" });
+    } finally {
+      setSending(false);
     }
   };
 
@@ -223,6 +248,26 @@ const EmbedForm = ({ embed, onChange }: EmbedFormProps) => {
           <Switch checked={embed.timestamp} onCheckedChange={v => set("timestamp", v)} />
           <Label className="text-xs text-muted-foreground">Показати дату</Label>
         </div>
+      </section>
+
+      <Separator className="bg-border" />
+
+      {/* Webhook */}
+      <section className="space-y-3">
+        <h3 className="text-sm font-semibold text-foreground">Відправка через Webhook</h3>
+        <div>
+          <Label className={labelClass}>Discord Webhook URL</Label>
+          <Input
+            className={inputClass}
+            placeholder="https://discord.com/api/webhooks/..."
+            value={webhookUrl}
+            onChange={e => setWebhookUrl(e.target.value)}
+          />
+        </div>
+        <Button onClick={sendWebhook} disabled={sending} className="w-full gap-2">
+          {sending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+          {sending ? "Надсилання..." : "Надіслати в Discord"}
+        </Button>
       </section>
 
       <Separator className="bg-border" />
