@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -29,7 +29,15 @@ const defaultEmbed: EmbedData = {
 
 const EmbedBuilder = () => {
   const [searchParams] = useSearchParams();
-  const [embed, setEmbed] = useState<EmbedData>(defaultEmbed);
+  const [embed, setEmbed] = useState<EmbedData>(() => {
+    const name = searchParams.get("name");
+    const botavatar = searchParams.get("botavatar");
+    return {
+      ...defaultEmbed,
+      ...(name ? { botName: name } : {}),
+      ...(botavatar ? { botAvatarUrl: botavatar } : {}),
+    };
+  });
   const webhookUrlFromParams = searchParams.get("url") || "";
 
   return (
