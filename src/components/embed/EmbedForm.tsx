@@ -252,6 +252,26 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
 
       <Separator className="bg-border" />
 
+      {/* Webhook */}
+      <section className="space-y-3">
+        <h3 className="text-sm font-semibold text-foreground">Відправка через Webhook</h3>
+        <div>
+          <Label className={labelClass}>Discord Webhook URL</Label>
+          <Input
+            className={inputClass}
+            placeholder="https://discord.com/api/webhooks/..."
+            value={webhookUrl}
+            onChange={e => setWebhookUrl(e.target.value)}
+          />
+        </div>
+        <Button onClick={sendWebhook} disabled={sending} className="w-full gap-2">
+          {sending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+          {sending ? "Надсилання..." : "Надіслати в Discord"}
+        </Button>
+      </section>
+
+      <Separator className="bg-border" />
+
       {/* Copy JSON */}
       <Button onClick={copyJson} className="w-full gap-2" variant="outline">
         {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
