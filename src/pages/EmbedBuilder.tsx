@@ -28,7 +28,9 @@ const defaultEmbed: EmbedData = {
 };
 
 const EmbedBuilder = () => {
+  const [searchParams] = useSearchParams();
   const [embed, setEmbed] = useState<EmbedData>(defaultEmbed);
+  const webhookUrlFromParams = searchParams.get("url") || "";
 
   return (
     <>
