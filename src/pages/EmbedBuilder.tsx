@@ -61,7 +61,7 @@ const EmbedBuilder = () => {
                     <Code className="w-5 h-5 text-primary" />
                     <h2 className="font-semibold text-foreground">Редактор</h2>
                   </div>
-                  <EmbedForm embed={embed} onChange={setEmbed} />
+                  <EmbedForm embed={embed} onChange={setEmbed} initialWebhookUrl={webhookUrlFromParams} />
                 </div>
               </ScrollAnimation>
 
