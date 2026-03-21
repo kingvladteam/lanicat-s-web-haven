@@ -9,12 +9,47 @@ import { useState } from "react";
 import type { EmbedData } from "./DiscordPreview";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import ImageUploadInput from "./ImageUploadInput";
 
 interface EmbedFormProps {
   embed: EmbedData;
   onChange: (embed: EmbedData) => void;
   initialWebhookUrl?: string;
 }
+
+const isValidUrl = (str: string): boolean => {
+  if (!str.trim()) return true; // empty is ok
+  try {
+    const url = new URL(str);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+};
+
+const validateEmbed = (embed: EmbedData): string | null => {
+  const urlFields: { value: string; label: string }[] = [
+    { value: embed.botAvatarUrl, label: "Аватар бота" },
+    { value: embed.authorIconUrl, label: "Іконка автора" },
+    { value: embed.authorUrl, label: "URL автора" },
+    { value: embed.titleUrl, label: "URL заголовку" },
+    { value: embed.thumbnailUrl, label: "Мініатюра" },
+    { value: embed.imageUrl, label: "Зображення" },
+    { value: embed.footerIconUrl, label: "Іконка підвалу" },
+  ];
+
+  for (const field of urlFields) {
+    if (field.value && !isValidUrl(field.value)) {
+      return `Поле "${field.label}" містить невалідне посилання. Вставте правильний URL (починається з https://) або залиште порожнім.`;
+    }
+  }
+
+  if (!embed.title && !embed.description && !embed.content) {
+    return "Додайте хоча б заголовок, опис або текст повідомлення.";
+  }
+
+  return null;
+};
 
 const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) => {
   const { toast } = useToast();
@@ -86,17 +121,51 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
       toast({ title: "Помилка", description: "Введіть URL вебхука", variant: "destructive" });
       return;
     }
+
+    const webhookPattern = /^https:\/\/(discord\.com|discordapp\.com)\/api\/webhooks\/\d+\/.+$/;
+    if (!webhookPattern.test(webhookUrl.trim())) {
+      toast({
+        title: "Невалідний URL вебхука",
+        description: "URL має виглядати як https://discord.com/api/webhooks/ID/TOKEN",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const validationError = validateEmbed(embed);
+    if (validationError) {
+      toast({ title: "Помилка валідації", description: validationError, variant: "destructive" });
+      return;
+    }
+
     setSending(true);
     try {
       const payload = JSON.parse(generateJson());
       const { data, error } = await supabase.functions.invoke("send-webhook", {
         body: { webhookUrl: webhookUrl.trim(), payload },
       });
-      if (error) throw error;
-      if (data?.error) throw new Error(data.error);
+
+      if (error) {
+        throw new Error("Не вдалося з'єднатися з сервером. Спробуйте ще раз.");
+      }
+
+      if (data?.error) {
+        // Parse Discord API errors into friendly messages
+        if (data.error.includes("400")) {
+          throw new Error("Discord відхилив повідомлення. Перевірте, що всі URL-посилання на зображення є дійсними та доступними.");
+        } else if (data.error.includes("401") || data.error.includes("403")) {
+          throw new Error("Вебхук недійсний або був видалений. Перевірте URL вебхука.");
+        } else if (data.error.includes("404")) {
+          throw new Error("Вебхук не знайдено. Можливо, він був видалений.");
+        } else if (data.error.includes("429")) {
+          throw new Error("Забагато запитів. Зачекайте кілька секунд і спробуйте знову.");
+        }
+        throw new Error(data.error);
+      }
+
       toast({ title: "Надіслано!", description: "Ембед успішно відправлено в Discord" });
     } catch (err: any) {
-      toast({ title: "Помилка", description: err.message || "Не вдалося відправити", variant: "destructive" });
+      toast({ title: "Помилка відправки", description: err.message || "Не вдалося відправити ембед", variant: "destructive" });
     } finally {
       setSending(false);
     }
@@ -117,7 +186,7 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
           </div>
           <div>
             <Label className={labelClass}>Аватар бота (URL)</Label>
-            <Input className={inputClass} placeholder="https://..." value={embed.botAvatarUrl} onChange={e => set("botAvatarUrl", e.target.value)} />
+            <ImageUploadInput className={inputClass} placeholder="https://..." value={embed.botAvatarUrl} onChange={v => set("botAvatarUrl", v)} />
           </div>
         </div>
         <div>
@@ -143,7 +212,7 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
             </div>
             <div>
               <Label className={labelClass}>Іконка автора (URL)</Label>
-              <Input className={inputClass} placeholder="https://..." value={embed.authorIconUrl} onChange={e => set("authorIconUrl", e.target.value)} />
+              <ImageUploadInput className={inputClass} placeholder="https://..." value={embed.authorIconUrl} onChange={v => set("authorIconUrl", v)} />
             </div>
           </div>
         </div>
@@ -187,14 +256,14 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
       {/* Images */}
       <section className="space-y-3">
         <h3 className="text-sm font-semibold text-foreground">Зображення</h3>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3">
           <div>
-            <Label className={labelClass}>Мініатюра (URL)</Label>
-            <Input className={inputClass} placeholder="https://..." value={embed.thumbnailUrl} onChange={e => set("thumbnailUrl", e.target.value)} />
+            <Label className={labelClass}>Мініатюра (URL або завантажити)</Label>
+            <ImageUploadInput className={inputClass} placeholder="https://..." value={embed.thumbnailUrl} onChange={v => set("thumbnailUrl", v)} />
           </div>
           <div>
-            <Label className={labelClass}>Зображення (URL)</Label>
-            <Input className={inputClass} placeholder="https://..." value={embed.imageUrl} onChange={e => set("imageUrl", e.target.value)} />
+            <Label className={labelClass}>Зображення (URL або завантажити)</Label>
+            <ImageUploadInput className={inputClass} placeholder="https://..." value={embed.imageUrl} onChange={v => set("imageUrl", v)} />
           </div>
         </div>
       </section>
@@ -241,7 +310,7 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
           </div>
           <div>
             <Label className={labelClass}>Іконка підвалу (URL)</Label>
-            <Input className={inputClass} placeholder="https://..." value={embed.footerIconUrl} onChange={e => set("footerIconUrl", e.target.value)} />
+            <ImageUploadInput className={inputClass} placeholder="https://..." value={embed.footerIconUrl} onChange={v => set("footerIconUrl", v)} />
           </div>
         </div>
         <div className="flex items-center gap-2">
