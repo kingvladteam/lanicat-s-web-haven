@@ -1,4 +1,5 @@
 import { ExternalLink } from "lucide-react";
+import DiscordMarkdown from "./DiscordMarkdown";
 
 export interface EmbedData {
   authorName: string;
@@ -38,6 +39,8 @@ const DiscordPreview = ({ embed }: DiscordPreviewProps) => {
           src={embed.botAvatarUrl || "https://cdn.discordapp.com/embed/avatars/0.png"}
           alt="Bot"
           className="w-10 h-10 rounded-full mt-0.5 shrink-0"
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
           onError={(e) => { (e.target as HTMLImageElement).src = "https://cdn.discordapp.com/embed/avatars/0.png"; }}
         />
         <div className="flex-1 min-w-0">
@@ -59,8 +62,8 @@ const DiscordPreview = ({ embed }: DiscordPreviewProps) => {
 
           {/* Content text above embed */}
           {embed.content && (
-            <p className="text-sm mb-1 whitespace-pre-wrap" style={{ color: "#dbdee1" }}>
-              {embed.content}
+            <p className="text-sm mb-1 whitespace-pre-wrap">
+              <DiscordMarkdown text={embed.content} />
             </p>
           )}
 
@@ -129,11 +132,8 @@ const DiscordPreview = ({ embed }: DiscordPreviewProps) => {
 
                       {/* Description */}
                       {embed.description && (
-                        <p
-                          className="text-sm whitespace-pre-wrap mb-2"
-                          style={{ color: "#dbdee1" }}
-                        >
-                          {embed.description}
+                        <p className="text-sm whitespace-pre-wrap mb-2">
+                          <DiscordMarkdown text={embed.description} />
                         </p>
                       )}
 
@@ -152,8 +152,8 @@ const DiscordPreview = ({ embed }: DiscordPreviewProps) => {
                               <div className="text-xs font-semibold mb-0.5" style={{ color: "#f2f3f5" }}>
                                 {field.name}
                               </div>
-                              <div className="text-sm" style={{ color: "#dbdee1" }}>
-                                {field.value}
+                              <div className="text-sm">
+                                <DiscordMarkdown text={field.value} />
                               </div>
                             </div>
                           ))}
