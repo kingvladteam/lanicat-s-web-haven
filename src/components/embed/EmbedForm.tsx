@@ -78,6 +78,8 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
 
   const generateJson = () => {
     const obj: any = {};
+    if (embed.botName) obj.username = embed.botName;
+    if (embed.botAvatarUrl) obj.avatar_url = embed.botAvatarUrl;
     if (embed.content) obj.content = embed.content;
 
     const embedObj: any = {};
