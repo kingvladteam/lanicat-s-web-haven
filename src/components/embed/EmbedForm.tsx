@@ -83,10 +83,24 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
     if (embed.botAvatarUrl) obj.avatar_url = embed.botAvatarUrl;
     if (embed.content) obj.content = embed.content;
 
+    const extras = (embed.extraImageUrls || []).filter(Boolean);
+    const hasGallery = extras.length > 0;
+
     const embedObj: any = {};
-    if (embed.title) embedObj.title = embed.title;
+
+    // If gallery is used and user did NOT set a titleUrl, avoid making the title
+    // a clickable link to our domain. Move the title into the description as bold.
+    if (hasGallery && embed.title && !embed.titleUrl) {
+      const titleLine = `**${embed.title}**`;
+      embedObj.description = embed.description
+        ? `${titleLine}\n${embed.description}`
+        : titleLine;
+    } else {
+      if (embed.title) embedObj.title = embed.title;
+      if (embed.description) embedObj.description = embed.description;
+    }
+
     if (embed.titleUrl) embedObj.url = embed.titleUrl;
-    if (embed.description) embedObj.description = embed.description;
     if (embed.color) embedObj.color = parseInt(embed.color.replace("#", ""), 16);
     if (embed.authorName) {
       embedObj.author = { name: embed.authorName };
@@ -104,13 +118,10 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
       embedObj.fields = embed.fields.filter(f => f.name || f.value);
     }
 
-    const extras = (embed.extraImageUrls || []).filter(Boolean);
-    if (Object.keys(embedObj).length > 0 || extras.length > 0) {
+    if (Object.keys(embedObj).length > 0 || hasGallery) {
       const embedsArr: any[] = [embedObj];
-      if (extras.length > 0) {
+      if (hasGallery) {
         // Discord groups embeds into a gallery when they share the same `url`.
-        // Use the user's titleUrl if provided, otherwise an invisible shared marker
-        // that does NOT turn the title into a visible link unless the user set one.
         const sharedUrl = embed.titleUrl || `https://lanicat.pp.ua/#g-${Date.now()}`;
         embedObj.url = sharedUrl;
         for (const url of extras) {
