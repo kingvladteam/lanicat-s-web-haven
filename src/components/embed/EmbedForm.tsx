@@ -44,8 +44,9 @@ const validateEmbed = (embed: EmbedData): string | null => {
     }
   }
 
-  if (!embed.title && !embed.description && !embed.content) {
-    return "Додайте хоча б заголовок, опис або текст повідомлення.";
+  const hasImage = !!(embed.imageUrl || embed.thumbnailUrl || (embed.extraImageUrls || []).some(Boolean));
+  if (!embed.title && !embed.description && !embed.content && !hasImage) {
+    return "Додайте хоча б заголовок, опис, текст повідомлення або зображення.";
   }
 
   return null;
@@ -105,14 +106,16 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
 
     const extras = (embed.extraImageUrls || []).filter(Boolean);
     if (Object.keys(embedObj).length > 0 || extras.length > 0) {
-      // For Discord to group images into one gallery, all embeds must share the same `url`.
-      const galleryUrl = embed.titleUrl || `https://lanicat.pp.ua/#embed-gallery`;
-      if (extras.length > 0) {
-        embedObj.url = galleryUrl;
-      }
       const embedsArr: any[] = [embedObj];
-      for (const url of extras) {
-        embedsArr.push({ url: galleryUrl, image: { url } });
+      if (extras.length > 0) {
+        // Discord groups embeds into a gallery when they share the same `url`.
+        // Use the user's titleUrl if provided, otherwise an invisible shared marker
+        // that does NOT turn the title into a visible link unless the user set one.
+        const sharedUrl = embed.titleUrl || `https://lanicat.pp.ua/#g-${Date.now()}`;
+        embedObj.url = sharedUrl;
+        for (const url of extras) {
+          embedsArr.push({ url: sharedUrl, image: { url } });
+        }
       }
       obj.embeds = embedsArr;
     }
