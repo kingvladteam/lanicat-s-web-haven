@@ -25,6 +25,7 @@ const defaultEmbed: EmbedData = {
   footerIconUrl: "",
   timestamp: true,
   fields: [],
+  extraImageUrls: [],
 };
 
 const EmbedBuilder = () => {
