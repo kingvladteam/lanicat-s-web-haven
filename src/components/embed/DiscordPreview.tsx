@@ -30,7 +30,7 @@ const DiscordPreview = ({ embed }: DiscordPreviewProps) => {
   const timeStr = `Today at ${now.toLocaleTimeString("uk-UA", { hour: "2-digit", minute: "2-digit" })}`;
 
   const hasEmbed =
-    embed.title || embed.description || embed.authorName || embed.footerText || embed.fields.length > 0 || embed.imageUrl || embed.thumbnailUrl;
+    embed.title || embed.description || embed.authorName || embed.footerText || embed.fields.length > 0 || embed.imageUrl || embed.thumbnailUrl || (embed.extraImageUrls && embed.extraImageUrls.some(Boolean));
 
   return (
     <div className="min-h-[200px] rounded-lg p-4" style={{ backgroundColor: "#313338" }}>
