@@ -18,6 +18,7 @@ export interface EmbedData {
   botName: string;
   botAvatarUrl: string;
   content: string;
+  extraImageUrls?: string[];
 }
 
 interface DiscordPreviewProps {
