@@ -44,8 +44,9 @@ const validateEmbed = (embed: EmbedData): string | null => {
     }
   }
 
-  if (!embed.title && !embed.description && !embed.content) {
-    return "Додайте хоча б заголовок, опис або текст повідомлення.";
+  const hasImage = !!(embed.imageUrl || embed.thumbnailUrl || (embed.extraImageUrls || []).some(Boolean));
+  if (!embed.title && !embed.description && !embed.content && !hasImage) {
+    return "Додайте хоча б заголовок, опис, текст повідомлення або зображення.";
   }
 
   return null;
@@ -82,10 +83,24 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
     if (embed.botAvatarUrl) obj.avatar_url = embed.botAvatarUrl;
     if (embed.content) obj.content = embed.content;
 
+    const extras = (embed.extraImageUrls || []).filter(Boolean);
+    const hasGallery = extras.length > 0;
+
     const embedObj: any = {};
-    if (embed.title) embedObj.title = embed.title;
+
+    // If gallery is used and user did NOT set a titleUrl, avoid making the title
+    // a clickable link to our domain. Move the title into the description as bold.
+    if (hasGallery && embed.title && !embed.titleUrl) {
+      const titleLine = `**${embed.title}**`;
+      embedObj.description = embed.description
+        ? `${titleLine}\n${embed.description}`
+        : titleLine;
+    } else {
+      if (embed.title) embedObj.title = embed.title;
+      if (embed.description) embedObj.description = embed.description;
+    }
+
     if (embed.titleUrl) embedObj.url = embed.titleUrl;
-    if (embed.description) embedObj.description = embed.description;
     if (embed.color) embedObj.color = parseInt(embed.color.replace("#", ""), 16);
     if (embed.authorName) {
       embedObj.author = { name: embed.authorName };
@@ -103,16 +118,15 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
       embedObj.fields = embed.fields.filter(f => f.name || f.value);
     }
 
-    const extras = (embed.extraImageUrls || []).filter(Boolean);
-    if (Object.keys(embedObj).length > 0 || extras.length > 0) {
-      // For Discord to group images into one gallery, all embeds must share the same `url`.
-      const galleryUrl = embed.titleUrl || `https://lanicat.pp.ua/#embed-gallery`;
-      if (extras.length > 0) {
-        embedObj.url = galleryUrl;
-      }
+    if (Object.keys(embedObj).length > 0 || hasGallery) {
       const embedsArr: any[] = [embedObj];
-      for (const url of extras) {
-        embedsArr.push({ url: galleryUrl, image: { url } });
+      if (hasGallery) {
+        // Discord groups embeds into a gallery when they share the same `url`.
+        const sharedUrl = embed.titleUrl || `https://lanicat.pp.ua/#g-${Date.now()}`;
+        embedObj.url = sharedUrl;
+        for (const url of extras) {
+          embedsArr.push({ url: sharedUrl, image: { url } });
+        }
       }
       obj.embeds = embedsArr;
     }
