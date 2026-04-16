@@ -103,7 +103,19 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
       embedObj.fields = embed.fields.filter(f => f.name || f.value);
     }
 
-    if (Object.keys(embedObj).length > 0) obj.embeds = [embedObj];
+    const extras = (embed.extraImageUrls || []).filter(Boolean);
+    if (Object.keys(embedObj).length > 0 || extras.length > 0) {
+      // For Discord to group images into one gallery, all embeds must share the same `url`.
+      const galleryUrl = embed.titleUrl || `https://lanicat.pp.ua/#embed-gallery`;
+      if (extras.length > 0) {
+        embedObj.url = galleryUrl;
+      }
+      const embedsArr: any[] = [embedObj];
+      for (const url of extras) {
+        embedsArr.push({ url: galleryUrl, image: { url } });
+      }
+      obj.embeds = embedsArr;
+    }
     return JSON.stringify(obj, null, 2);
   };
 
@@ -264,9 +276,57 @@ const EmbedForm = ({ embed, onChange, initialWebhookUrl = "" }: EmbedFormProps) 
             <ImageUploadInput className={inputClass} placeholder="https://..." value={embed.thumbnailUrl} onChange={v => set("thumbnailUrl", v)} />
           </div>
           <div>
-            <Label className={labelClass}>Зображення (URL або завантажити)</Label>
+            <Label className={labelClass}>Основне зображення (URL або завантажити)</Label>
             <ImageUploadInput className={inputClass} placeholder="https://..." value={embed.imageUrl} onChange={v => set("imageUrl", v)} />
           </div>
+
+          {/* Extra images (gallery up to 4 total) */}
+          {(embed.extraImageUrls || []).map((url, i) => (
+            <div key={i}>
+              <div className="flex items-center justify-between mb-1">
+                <Label className={labelClass}>Додаткове зображення {i + 2}</Label>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    const next = [...(embed.extraImageUrls || [])];
+                    next.splice(i, 1);
+                    set("extraImageUrls", next);
+                  }}
+                  className="h-6 w-6 p-0 text-destructive"
+                >
+                  <Trash2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <ImageUploadInput
+                className={inputClass}
+                placeholder="https://..."
+                value={url}
+                onChange={v => {
+                  const next = [...(embed.extraImageUrls || [])];
+                  next[i] = v;
+                  set("extraImageUrls", next);
+                }}
+              />
+            </div>
+          ))}
+
+          {(!embed.extraImageUrls || embed.extraImageUrls.length < 3) && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => set("extraImageUrls", [...(embed.extraImageUrls || []), ""])}
+              className="gap-1 self-start"
+              disabled={!embed.imageUrl}
+            >
+              <Plus className="w-3 h-3" /> Додати зображення (до 4)
+            </Button>
+          )}
+          {!embed.imageUrl && (
+            <p className="text-xs text-muted-foreground">
+              Спочатку додай основне зображення, щоб додавати додаткові (Discord групує до 4 в галерею).
+            </p>
+          )}
         </div>
       </section>
 

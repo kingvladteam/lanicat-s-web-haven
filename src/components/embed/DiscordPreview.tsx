@@ -18,6 +18,7 @@ export interface EmbedData {
   botName: string;
   botAvatarUrl: string;
   content: string;
+  extraImageUrls?: string[];
 }
 
 interface DiscordPreviewProps {
@@ -29,7 +30,7 @@ const DiscordPreview = ({ embed }: DiscordPreviewProps) => {
   const timeStr = `Today at ${now.toLocaleTimeString("uk-UA", { hour: "2-digit", minute: "2-digit" })}`;
 
   const hasEmbed =
-    embed.title || embed.description || embed.authorName || embed.footerText || embed.fields.length > 0 || embed.imageUrl || embed.thumbnailUrl;
+    embed.title || embed.description || embed.authorName || embed.footerText || embed.fields.length > 0 || embed.imageUrl || embed.thumbnailUrl || (embed.extraImageUrls && embed.extraImageUrls.some(Boolean));
 
   return (
     <div className="min-h-[200px] rounded-lg p-4" style={{ backgroundColor: "#313338" }}>
@@ -172,15 +173,35 @@ const DiscordPreview = ({ embed }: DiscordPreviewProps) => {
                     )}
                   </div>
 
-                  {/* Image */}
-                  {embed.imageUrl && (
-                    <img
-                      src={embed.imageUrl}
-                      alt=""
-                      className="max-w-full rounded mt-2 max-h-[300px] object-contain"
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                    />
-                  )}
+                  {/* Images (gallery) */}
+                  {(() => {
+                    const allImages = [embed.imageUrl, ...(embed.extraImageUrls || [])].filter(Boolean) as string[];
+                    if (allImages.length === 0) return null;
+                    if (allImages.length === 1) {
+                      return (
+                        <img
+                          src={allImages[0]}
+                          alt=""
+                          className="max-w-full rounded mt-2 max-h-[300px] object-contain"
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                        />
+                      );
+                    }
+                    const cols = allImages.length === 2 ? "grid-cols-2" : "grid-cols-2";
+                    return (
+                      <div className={`grid ${cols} gap-1 mt-2 rounded overflow-hidden`}>
+                        {allImages.slice(0, 4).map((url, i) => (
+                          <img
+                            key={i}
+                            src={url}
+                            alt=""
+                            className="w-full h-32 object-cover"
+                            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                          />
+                        ))}
+                      </div>
+                    );
+                  })()}
 
                   {/* Footer */}
                   {(embed.footerText || embed.timestamp) && (
