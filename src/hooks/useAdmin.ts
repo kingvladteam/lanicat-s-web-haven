@@ -13,12 +13,10 @@ export const useAdmin = () => {
         setLoading(false);
         return;
       }
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", session.user.id)
-        .eq("role", "admin")
-        .maybeSingle();
+      const { data } = await supabase.rpc("has_role", {
+        _user_id: session.user.id,
+        _role: "admin",
+      });
       setIsAdmin(!!data);
       setLoading(false);
     };

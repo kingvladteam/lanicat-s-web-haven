@@ -29,14 +29,8 @@ const ImageUploadInput = ({ value, onChange, placeholder = "https://...", classN
 
     setUploading(true);
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        toast({ title: "Потрібен вхід", description: "Увійдіть через Discord, щоб завантажувати зображення. Або вставте URL вручну.", variant: "destructive" });
-        setUploading(false);
-        return;
-      }
       const ext = file.name.split(".").pop() || "png";
-      const fileName = `${session.user.id}/${crypto.randomUUID()}.${ext}`;
+      const fileName = `${crypto.randomUUID()}.${ext}`;
 
       const { error } = await supabase.storage
         .from("embed-images")
