@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { Plus, Sparkles } from "lucide-react";
+import { Plus, Sparkles, Zap } from "lucide-react";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { ScrollAnimation } from "@/hooks/use-scroll-animation";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
 
 const Hero = () => {
   return (
