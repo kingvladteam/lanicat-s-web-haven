@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
-import { Plus, Sparkles, Zap } from "lucide-react";
+import { Plus, Sparkles } from "lucide-react";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { ScrollAnimation } from "@/hooks/use-scroll-animation";
-import { AnimatedCounter } from "@/components/AnimatedCounter";
 
 const Hero = () => {
   return (
@@ -39,29 +38,18 @@ const Hero = () => {
           </ScrollAnimation>
 
           <ScrollAnimation delay={200}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
               <Link
                 to="/add"
-                className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 text-lg font-bold bg-primary text-primary-foreground rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 animate-pulse-glow"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg 
+                         hover:bg-gold-light transition-all duration-300 glow-gold hover:scale-105"
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                <Plus className="relative z-10 w-6 h-6" />
-                <span className="relative z-10">Додати на сервер</span>
+                <Plus className="w-5 h-5" />
+                Додати на сервер
               </Link>
-
-              <div className="flex items-center gap-2 text-center sm:text-left">
-                <Zap className="w-4 h-4 text-primary shrink-0" />
-                <div>
-                  <p className="text-sm font-semibold text-foreground">Безкоштовно</p>
-                  <p className="text-xs text-muted-foreground">Запуск за 30 секунд</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-4">
               <a
                 href="#features"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-secondary text-secondary-foreground font-semibold rounded-lg 
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-lg 
                          border border-border hover:border-primary/50 transition-all duration-300 hover:scale-105"
               >
                 <Sparkles className="w-5 h-5" />
@@ -102,21 +90,15 @@ const Hero = () => {
           <ScrollAnimation delay={400}>
             <div className="flex flex-wrap justify-center gap-8 md:gap-16 mt-16">
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gradient">
-                  <AnimatedCounter target={500} suffix="+" />
-                </div>
+                <div className="text-3xl md:text-4xl font-bold text-gradient">500+</div>
                 <div className="text-muted-foreground text-sm">Серверів</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gradient">
-                  <AnimatedCounter target={45} suffix="K+" />
-                </div>
+                <div className="text-3xl md:text-4xl font-bold text-gradient">45K+</div>
                 <div className="text-muted-foreground text-sm">Користувачів</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gradient">
-                  <AnimatedCounter target={99.9} suffix="%" decimals={1} />
-                </div>
+                <div className="text-3xl md:text-4xl font-bold text-gradient">99.9%</div>
                 <div className="text-muted-foreground text-sm">Uptime</div>
               </div>
             </div>
