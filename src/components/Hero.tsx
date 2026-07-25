@@ -102,15 +102,21 @@ const Hero = () => {
           <ScrollAnimation delay={400}>
             <div className="flex flex-wrap justify-center gap-8 md:gap-16 mt-16">
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gradient">500+</div>
+                <div className="text-3xl md:text-4xl font-bold text-gradient">
+                  <AnimatedCounter target={500} suffix="+" />
+                </div>
                 <div className="text-muted-foreground text-sm">Серверів</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gradient">45K+</div>
+                <div className="text-3xl md:text-4xl font-bold text-gradient">
+                  <AnimatedCounter target={45} suffix="K+" />
+                </div>
                 <div className="text-muted-foreground text-sm">Користувачів</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gradient">99.9%</div>
+                <div className="text-3xl md:text-4xl font-bold text-gradient">
+                  <AnimatedCounter target={99.9} suffix="%" decimals={1} />
+                </div>
                 <div className="text-muted-foreground text-sm">Uptime</div>
               </div>
             </div>
