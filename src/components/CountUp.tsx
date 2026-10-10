@@ -8,7 +8,7 @@ interface CountUpProps {
   suffix?: string;
 }
 
-const CountUp = ({ from, to, duration = 1200, decimals = 0, suffix = "" }: CountUpProps) => {
+const CountUp = ({ from, to, duration = 2000, decimals = 0, suffix = "" }: CountUpProps) => {
   const [value, setValue] = useState(from);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
@@ -23,7 +23,7 @@ const CountUp = ({ from, to, duration = 1200, decimals = 0, suffix = "" }: Count
           const start = performance.now();
           const tick = (now: number) => {
             const p = Math.min((now - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - p, 3);
+            const eased = 1 - Math.pow(1 - p, 5);
             setValue(from + (to - from) * eased);
             if (p < 1) requestAnimationFrame(tick);
           };
