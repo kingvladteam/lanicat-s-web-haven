@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Plus, Sparkles } from "lucide-react";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { ScrollAnimation } from "@/hooks/use-scroll-animation";
+import CountUp from "@/components/CountUp";
 
 const Hero = () => {
   return (
@@ -90,15 +91,15 @@ const Hero = () => {
           <ScrollAnimation delay={400}>
             <div className="flex flex-wrap justify-center gap-8 md:gap-16 mt-16">
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gradient">500+</div>
+                <div className="text-3xl md:text-4xl font-bold text-gradient"><CountUp from={400} to={500} suffix="+" /></div>
                 <div className="text-muted-foreground text-sm">Серверів</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gradient">45K+</div>
+                <div className="text-3xl md:text-4xl font-bold text-gradient"><CountUp from={35} to={45} suffix="K+" /></div>
                 <div className="text-muted-foreground text-sm">Користувачів</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-gradient">99.9%</div>
+                <div className="text-3xl md:text-4xl font-bold text-gradient"><CountUp from={90} to={99.9} decimals={1} suffix="%" /></div>
                 <div className="text-muted-foreground text-sm">Uptime</div>
               </div>
             </div>
