@@ -44,7 +44,7 @@ const Header = () => {
                     key={link.to}
                     to={link.to}
                     className={cn(
-                      "group relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium overflow-hidden transition-all duration-300",
+                      "group relative flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-sm font-medium overflow-hidden transition-all duration-300",
                       isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
                     )}
                   >
@@ -78,9 +78,10 @@ const Header = () => {
 
               <Link
                 to="/add"
-                className="ml-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all duration-300 hover:scale-105"
+                className="group relative ml-2 px-3.5 py-1.5 text-sm font-medium bg-primary text-primary-foreground rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 hover:shadow-[0_0_25px_hsl(43_70%_50%/0.4)] active:scale-95"
               >
-                Додати бота
+                <span className="pointer-events-none absolute inset-0 -translate-x-[150%] skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[150%]" />
+                <span className="relative z-10">Додати бота</span>
               </Link>
             </nav>
 
