@@ -82,7 +82,9 @@ const modules = [
       { cmd: "/sad", desc: "Показати що тобі сумно" },
       { cmd: "/angry", desc: "Показати що ти злий" },
       { cmd: "/smile", desc: "Посміхнутись" },
-      { cmd: "/laugh", desc: "Голосно посміятись" }
+      { cmd: "/laugh", desc: "Голосно посміятись" },
+      { cmd: "/cry", desc: "Плакати" },
+      { cmd: "/shy", desc: "Соромитися" }
     ]
   },
   {
