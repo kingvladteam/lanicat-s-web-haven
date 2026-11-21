@@ -29,20 +29,12 @@ const ImageUploadInput = ({ value, onChange, placeholder = "https://...", classN
 
     setUploading(true);
     try {
-      const ext = file.name.split(".").pop() || "png";
-      const fileName = `${crypto.randomUUID()}.${ext}`;
+      const form = new FormData();
+      form.append("file", file);
+      const { data, error } = await supabase.functions.invoke("upload-embed-image", { body: form });
+      if (error || !data?.url) throw new Error(data?.error || "Не вдалося завантажити зображення");
 
-      const { error } = await supabase.storage
-        .from("embed-images")
-        .upload(fileName, file, { contentType: file.type });
-
-      if (error) throw error;
-
-      const { data: urlData } = supabase.storage
-        .from("embed-images")
-        .getPublicUrl(fileName);
-
-      onChange(urlData.publicUrl);
+      onChange(data.url);
       toast({ title: "Завантажено!", description: "Зображення успішно завантажено" });
     } catch (err: any) {
       toast({ title: "Помилка завантаження", description: err.message || "Не вдалося завантажити зображення", variant: "destructive" });
