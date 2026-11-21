@@ -8,6 +8,13 @@
       "when": 1795291999794,
       "tag": "0000_lock_embed_images_writes",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795292066748,
+      "tag": "0001_remove_embed_images_listing",
+      "breakpoints": true
     }
   ]
 }
