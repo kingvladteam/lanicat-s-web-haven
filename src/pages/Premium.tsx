@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Crown, BadgeCheck, ShieldOff, Zap, UserPlus, ShieldCheck, MessageSquareText, BarChart3, Bot, ImagePlus, Rocket, Headphones, MessageCircle } from "lucide-react";
+import { Crown, Star, ShieldOff, Zap, UserPlus, ShieldCheck, MessageSquareText, BarChart3, Bot, ImagePlus, Rocket, Headphones, MessageCircle } from "lucide-react";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { ScrollAnimation } from "@/hooks/use-scroll-animation";
 const Premium = () => {
@@ -11,7 +11,7 @@ const Premium = () => {
     title: "Ексклюзивна роль",
     description: "Отримайте унікальну роль на сервері підтримки, яка виділить Вас серед інших користувачів"
   }, {
-    icon: BadgeCheck,
+    icon: Star,
     title: "Ексклюзивний бейдж",
     description: "Особливий бейдж передплатника відображається в команді /userinfo"
   }, {
