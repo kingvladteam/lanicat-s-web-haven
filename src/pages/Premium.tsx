@@ -2,44 +2,56 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Crown, Zap, Shield, Star, MessageCircle, Clock } from "lucide-react";
+import { Crown, BadgeCheck, ShieldOff, Zap, UserPlus, ShieldCheck, MessageSquareText, BarChart3, Bot, ImagePlus, Rocket, Headphones, MessageCircle } from "lucide-react";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { ScrollAnimation } from "@/hooks/use-scroll-animation";
 const Premium = () => {
   const benefits = [{
     icon: Crown,
     title: "Ексклюзивна роль",
-    description: "Отримайте унікальну роль на сервері підтримки, яка виділить вас серед інших користувачів"
+    description: "Отримайте унікальну роль на сервері підтримки, яка виділить Вас серед інших користувачів"
   }, {
-    icon: Star,
+    icon: BadgeCheck,
     title: "Ексклюзивний бейдж",
-    description: "Особливий бейдж передплатника відображається у команді /userinfo"
+    description: "Особливий бейдж передплатника відображається в команді /userinfo"
   }, {
-    icon: Shield,
+    icon: ShieldOff,
     title: "Без реклами",
-    description: "Повне відключення всієї реклами для комфортного використання бота"
+    description: "Повне відключення реклами під час використання бота"
   }, {
     icon: Zap,
-    title: "Без затримок",
+    title: "Без затримки",
     description: "Імунітет до всіх затримок на командах — миттєве виконання"
   }, {
-    icon: Clock,
+    icon: UserPlus,
+    title: "Кілька авторолей",
+    description: "Можливість налаштувати автоматичну видачу до 10 ролей новим учасникам сервера"
+  }, {
+    icon: ShieldCheck,
+    title: "Кілька ролей після верифікації",
+    description: "Можливість налаштувати видачу двох або більше ролей користувачам після успішного проходження верифікації"
+  }, {
+    icon: MessageSquareText,
+    title: "Власне повідомлення верифікації",
+    description: "Змінюйте стандартне повідомлення, яке користувач отримує після успішної верифікації. Підтримуються змінні для згадки користувача та назви сервера"
+  }, {
+    icon: BarChart3,
     title: "Premium-статистика сервера",
-    description: "Доступ до команди /serverstats з детальною статистикою по модулях сервера"
+    description: "Доступ до команди /serverstats з детальною статистикою за модулями сервера"
   }, {
-    icon: Clock,
+    icon: Bot,
     title: "Premium-статистика бота",
-    description: "Доповнена статистика бота в /botinfo, що доступна тільки розробнику та Premium-користувачам"
+    description: "Розширена статистика бота в /botinfo, доступна лише розробнику та Premium-користувачам"
   }, {
-    icon: Star,
-    title: "Ваш текст на зображеннях",
-    description: "Доступ до команди /texttoimg, що створює зображення з вашим текстом"
+    icon: ImagePlus,
+    title: "Власний текст на зображеннях",
+    description: "Доступ до команди /texttoimg, яка створює зображення з Вашим текстом"
   }, {
-    icon: Zap,
+    icon: Rocket,
     title: "Ранній доступ",
-    description: "Нові функції бота відкриваються Premium-користувачам раніше за всіх"
+    description: "Отримуйте доступ до нових функцій бота раніше за інших користувачів"
   }, {
-    icon: MessageCircle,
+    icon: Headphones,
     title: "Пріоритетна підтримка",
     description: "Ваші звернення обробляються в першу чергу на сервері підтримки"
   }];
@@ -117,7 +129,7 @@ const Premium = () => {
                   Бонуси та можливості
                 </h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {benefits.map((benefit, index) => <ScrollAnimation key={index} delay={400 + index * 100}>
+                  {benefits.map((benefit, index) => <ScrollAnimation key={index} delay={400 + Math.min(index, 5) * 60}>
                       <div className="glass-card rounded-xl p-6 hover:border-primary/50 transition-colors h-full">
                         <div className="flex items-center gap-3 mb-4">
                           <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
