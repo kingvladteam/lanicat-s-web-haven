@@ -84,7 +84,7 @@ const About = () => {
               </p>
               <div className="grid gap-4">
                 {features.map((feature, index) => (
-                  <ScrollAnimation key={index} delay={index * 100}>
+                  <ScrollAnimation key={index} delay={Math.min(index, 3) * 60}>
                     <div className="flex items-center gap-4 p-4 bg-card rounded-lg border border-border hover:border-primary/30 transition-colors">
                       <feature.icon className="w-6 h-6 text-primary flex-shrink-0" />
                       <span className="text-foreground">{feature.text}</span>
@@ -101,7 +101,7 @@ const About = () => {
               <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gradient">Історія розвитку</h2>
               <div className="space-y-6">
                 {timeline.map((item, index) => (
-                  <ScrollAnimation key={index} delay={index * 150}>
+                  <ScrollAnimation key={index} delay={0}>
                     <div className="relative pl-8 border-l-2 border-primary/30 hover:border-primary transition-colors">
                       <div className="absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full" />
                       <div className="flex items-center gap-2 mb-2">

@@ -12,7 +12,7 @@ export const useScrollAnimation = (threshold = 0.1) => {
           observer.unobserve(entry.target);
         }
       },
-      { threshold }
+      { threshold, rootMargin: "0px 0px -40px 0px" }
     );
 
     const currentRef = ref.current;
@@ -42,10 +42,10 @@ export const ScrollAnimation = ({ children, className = "", delay = 0 }: ScrollA
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ease-out ${className}`}
+      className={`transition-all duration-500 ease-out will-change-transform ${className}`}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(30px)",
+        transform: isVisible ? "translateY(0)" : "translateY(16px)",
         transitionDelay: `${delay}ms`,
       }}
     >
