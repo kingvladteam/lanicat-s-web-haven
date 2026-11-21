@@ -132,7 +132,7 @@ const Features = () => {
               <span className="text-gradient">Модулі</span> бота
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Lanicat — перший український бот-комбайн з безліччю функцій
+              Український Discord-бот із десятками функцій для адміністрування, автоматизації та розвитку вашого сервера.
             </p>
           </div>
         </ScrollAnimation>

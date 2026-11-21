@@ -52,7 +52,7 @@ const About = () => {
                 <span className="text-gradient">Про бота Lanicat</span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-3xl">
-                Перший український бот-комбайн для вашого сервера
+                Український Discord-бот із десятками функцій для адміністрування, автоматизації та розвитку вашого сервера.
               </p>
             </div>
           </ScrollAnimation>
@@ -80,7 +80,7 @@ const About = () => {
             <section className="mb-16">
               <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gradient">Можливості бота</h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Lanicat — це перший український бот-комбайн для вашого сервера, який поєднує в собі безліч функцій:
+                Lanicat поєднує десятки функцій для адміністрування, автоматизації та розвитку вашого сервера:
               </p>
               <div className="grid gap-4">
                 {features.map((feature, index) => (
