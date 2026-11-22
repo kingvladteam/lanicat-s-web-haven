@@ -2,10 +2,16 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { ScrollAnimation } from "@/hooks/use-scroll-animation";
+import PageHead from "@/components/PageHead";
 
 const Terms = () => {
   return (
     <main className="min-h-screen bg-background pt-16">
+      <PageHead
+        title="Умови користування — Lanicat"
+        description="Умови користування Discord-ботом Lanicat: правила використання, обмеження відповідальності та умови підписки Lanicat Premium."
+        path="/terms"
+      />
       <Header />
 
       {/* Content */}

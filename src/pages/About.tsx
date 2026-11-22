@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { CheckCircle, Zap, Shield, Users, Calendar, Award } from "lucide-react";
 import { ScrollAnimation } from "@/hooks/use-scroll-animation";
+import PageHead from "@/components/PageHead";
 
 const About = () => {
   const features = [
@@ -34,6 +35,11 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-background pt-16">
+      <PageHead
+        title="Про бота Lanicat — Історія та можливості"
+        description="Дізнайтеся про Lanicat: історію розвитку від v0.1 Beta до v2.1, можливості, офіційну верифікацію Discord і плани на майбутнє."
+        path="/about"
+      />
       <Header />
 
       {/* Hero Section */}

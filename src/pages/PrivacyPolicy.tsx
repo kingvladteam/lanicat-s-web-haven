@@ -2,10 +2,16 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import lanicatLogo from "@/assets/lanicat-logo.png";
 import { ScrollAnimation } from "@/hooks/use-scroll-animation";
+import PageHead from "@/components/PageHead";
 
 const PrivacyPolicy = () => {
   return (
     <main className="min-h-screen bg-background pt-16">
+      <PageHead
+        title="Політика конфіденційності — Lanicat"
+        description="Політика конфіденційності Lanicat: які дані Discord-бот збирає, як використовує та захищає їх і як користувачі можуть керувати своїми даними."
+        path="/privacy"
+      />
       <Header />
 
       {/* Content */}

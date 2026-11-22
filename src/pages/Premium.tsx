@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import PageHead from "@/components/PageHead";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Crown, Star, ShieldOff, Zap, UserPlus, ShieldCheck, MessageSquareText, BarChart3, Bot, ImagePlus, Rocket, Headphones, MessageCircle } from "lucide-react";
@@ -56,10 +56,11 @@ const Premium = () => {
     description: "Ваші звернення обробляються в першу чергу на сервері підтримки"
   }];
   return <>
-      <Helmet>
-        <title>Lanicat Premium - Підтримка проєкту</title>
-        <meta name="description" content="Підтримайте проєкт Lanicat та отримайте ексклюзивні бонуси: без реклами, без затримок, пріоритетна підтримка та унікальні ролі." />
-      </Helmet>
+      <PageHead
+        title="Lanicat Premium — Підтримка проєкту"
+        description="Підтримайте проєкт Lanicat та отримайте ексклюзивні бонуси: без реклами, без затримок, пріоритетна підтримка та унікальні ролі."
+        path="/premium"
+      />
       
       <div className="min-h-screen bg-background flex flex-col">
         <Header />

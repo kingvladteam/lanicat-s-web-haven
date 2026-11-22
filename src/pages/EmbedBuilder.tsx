@@ -6,7 +6,7 @@ import { ScrollAnimation } from "@/hooks/use-scroll-animation";
 import DiscordPreview, { type EmbedData } from "@/components/embed/DiscordPreview";
 import EmbedForm from "@/components/embed/EmbedForm";
 import { Code, Eye } from "lucide-react";
-import { Helmet } from "react-helmet-async";
+import PageHead from "@/components/PageHead";
 
 const defaultEmbed: EmbedData = {
   botName: "Lanicat",
@@ -43,10 +43,11 @@ const EmbedBuilder = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Embed Builder — Lanicat</title>
-        <meta name="description" content="Створюй красиві ембеди для Discord з попереднім переглядом" />
-      </Helmet>
+      <PageHead
+        title="Embed Builder — Lanicat"
+        description="Створюйте ембеди для Discord із зображеннями, Markdown і попереднім переглядом, копіюйте JSON або надсилайте їх через вебхук."
+        path="/embed"
+      />
       <div className="min-h-screen bg-background">
         <Header />
         <main className="pt-24 pb-16 px-4">

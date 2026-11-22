@@ -10,6 +10,7 @@ import { DocModuleDetail } from "@/components/docs/DocModuleDetail";
 import { AdminPanel } from "@/components/docs/AdminPanel";
 import { DocSearch } from "@/components/docs/DocSearch";
 import { Book, Shield } from "lucide-react";
+import PageHead from "@/components/PageHead";
 
 export interface DocModule {
   id: string;
@@ -105,6 +106,11 @@ const Documentation = () => {
 
   return (
     <div className="min-h-screen bg-background pt-16">
+      <PageHead
+        title="Документація та команди — Lanicat"
+        description="Повна документація Lanicat: модулі, команди, аргументи, приклади використання та налаштування функцій для вашого Discord-сервера."
+        path="/documentation"
+      />
       <Header />
 
       {/* Hero */}
