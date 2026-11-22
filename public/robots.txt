@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://lanicat.lovable.app/sitemap.xml
+Sitemap: https://lanicat.pp.ua/sitemap.xml

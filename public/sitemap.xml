@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://lanicat.lovable.app/</loc>
+    <loc>https://lanicat.pp.ua/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://lanicat.lovable.app/about</loc>
+    <loc>https://lanicat.pp.ua/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://lanicat.lovable.app/premium</loc>
+    <loc>https://lanicat.pp.ua/premium</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://lanicat.lovable.app/faq</loc>
+    <loc>https://lanicat.pp.ua/faq</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://lanicat.lovable.app/documentation</loc>
+    <loc>https://lanicat.pp.ua/documentation</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://lanicat.lovable.app/embed</loc>
+    <loc>https://lanicat.pp.ua/embed</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://lanicat.lovable.app/privacy</loc>
+    <loc>https://lanicat.pp.ua/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://lanicat.lovable.app/terms</loc>
+    <loc>https://lanicat.pp.ua/terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

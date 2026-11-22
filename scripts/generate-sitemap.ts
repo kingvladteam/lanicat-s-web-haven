@@ -1,7 +1,7 @@
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 
-const BASE_URL = "https://lanicat.lovable.app";
+const BASE_URL = "https://lanicat.pp.ua";
 
 interface SitemapEntry {
   path: string;
