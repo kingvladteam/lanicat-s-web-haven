@@ -1,32 +1,14 @@
-import { writeFileSync } from "fs";
-import { resolve } from "path";
+import { writeFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { BASE_URL, seoRoutes } from "./seo-routes";
 
-const BASE_URL = "https://lanicat.pp.ua";
-
-interface SitemapEntry {
-  path: string;
-  changefreq: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
-  priority: string;
-}
-
-const entries: SitemapEntry[] = [
-  { path: "/", changefreq: "weekly", priority: "1.0" },
-  { path: "/about", changefreq: "monthly", priority: "0.8" },
-  { path: "/premium", changefreq: "monthly", priority: "0.8" },
-  { path: "/faq", changefreq: "weekly", priority: "0.8" },
-  { path: "/documentation", changefreq: "weekly", priority: "0.9" },
-  { path: "/embed", changefreq: "monthly", priority: "0.7" },
-  { path: "/privacy", changefreq: "yearly", priority: "0.3" },
-  { path: "/terms", changefreq: "yearly", priority: "0.3" },
-];
-
-function generateSitemap(entries: SitemapEntry[]) {
-  const urls = entries.map((entry) =>
+function generateSitemap() {
+  const urls = seoRoutes.map((route) =>
     [
       "  <url>",
-      `    <loc>${BASE_URL}${entry.path}</loc>`,
-      `    <changefreq>${entry.changefreq}</changefreq>`,
-      `    <priority>${entry.priority}</priority>`,
+      `    <loc>${BASE_URL}${route.path}</loc>`,
+      `    <changefreq>${route.changefreq}</changefreq>`,
+      `    <priority>${route.priority}</priority>`,
       "  </url>",
     ].join("\n"),
   );
@@ -39,5 +21,5 @@ function generateSitemap(entries: SitemapEntry[]) {
   ].join("\n");
 }
 
-writeFileSync(resolve("public/sitemap.xml"), generateSitemap(entries));
-console.log(`sitemap.xml written (${entries.length} entries)`);
+writeFileSync(resolve("public/sitemap.xml"), generateSitemap());
+console.log(`sitemap.xml written (${seoRoutes.length} entries)`);

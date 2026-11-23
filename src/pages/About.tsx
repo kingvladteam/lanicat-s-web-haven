@@ -36,8 +36,8 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background pt-16">
       <PageHead
-        title="Про бота Lanicat — Історія та можливості"
-        description="Дізнайтеся про Lanicat: історію розвитку від v0.1 Beta до v2.1, можливості, офіційну верифікацію Discord і плани на майбутнє."
+        title="Про Lanicat — Український Discord-бот від kingvlad"
+        description="Історія та можливості українського Discord-бота Lanicat, створеного розробником kingvlad: від v0.1 Beta до v2.1, верифікація Discord і плани розвитку."
         path="/about"
       />
       <Header />
@@ -73,7 +73,7 @@ const About = () => {
             <section className="mb-16">
               <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gradient">Що таке Lanicat?</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                <strong className="text-foreground">Lanicat</strong> — це багатофункціональний програмний бот, створений для автоматизації, модерації та розширення можливостей серверів. Проєкт розроблений і підтримується <strong className="text-primary">Kingvlad</strong> з акцентом на стабільність, функціональність і зручність для користувачів.
+                <strong className="text-foreground">Lanicat</strong> — це багатофункціональний програмний бот, створений для автоматизації, модерації та розширення можливостей серверів. Проєкт розроблений і підтримується <strong className="text-primary">kingvlad</strong> з акцентом на стабільність, функціональність і зручність для користувачів.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-4">
                 Lanicat є безкоштовним ботом і з самого початку створювався спеціально для українських спільнот. Основна ідея проєкту — надати українським серверам якісний, сучасний та універсальний інструмент без необхідності використання кількох різних ботів.
